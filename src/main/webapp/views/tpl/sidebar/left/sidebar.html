@@ -1,0 +1,48 @@
+<div ng-if="contentInformation['Name']">
+    <div class="ltr-data info-header">
+        <div class="directory-image"><div class="image-content"></div></div>
+        <div class="info-header-title display-inline-block">
+            {{contentInformation['Name']}}
+        </div>
+        <div class="display-inline-block header-menu close-icon" ng-click="changeInfoStatus()"></div>
+    </div>
+    <div class="file-image information" >
+        <div class="{{contentInformation['Mime'] ? contentInformation['Mime']+'-image-128' : 'directory-image-128'}} " ></div>
+        <!--<img ng-src="views/resource/images/ic_folder_black_24px.svg" alt="">-->
+    </div>
+    <div class="padding-15">
+        <div class="col-md-12 info-content-items">
+            <div class="right-div">{{'type' | translate}}</div>
+            <div class="left-div">{{contentInformation['Mime'] || 'Folder'}}</div>
+        </div>
+        <div class="col-md-12 info-content-items">
+            <div class="right-div">{{'last_modified' | translate}}</div>
+            <div class="left-div">{{contentInformation['LastModified']}}</div>
+        </div>
+        <div class="col-md-12 info-content-items">
+            <div class="right-div">{{'owner' | translate}}</div>
+            <div class="left-div">{{contentInformation['Owner']}}</div>
+        </div>
+        <div class="col-md-12 info-content-items">
+            <div class="right-div">{{'size' | translate}}</div>
+            <div class="left-div">{{contentInformation['FileSize']}}</div>
+        </div>
+    </div>
+    <!--<div class="padding-15">-->
+        <div class="col-md-12 info-content-items">
+            <span ng-show="!showTextarea">
+                <div class="right-div" style="width: 220px;">{{'add_desc' | translate}}</div>
+                <div class="left-div" style="width: 73px;">
+                    <div class="header-menu edit-icon" ng-click="toggleTextarea()">
+                        <div>
+
+                        </div>
+                    </div>
+                </div>
+            </span>
+            <textarea ng-show="showTextarea" class="form-control"  rows="3"></textarea>
+        </div>
+    </div>
+
+
+</div>

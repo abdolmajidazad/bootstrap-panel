@@ -1,0 +1,316 @@
+<div class="application-loading" ng-animate-children></div>
+<div class="container" >
+    <div class="col-md-12 col-sm-12 col-xs-12 no-padding form-signin" >
+        <div class="col-lg-7 col-md-12 col-sm-12 col-xs-12 padding-10 mobile-block form-image-box" >
+            <div class="logo-type">
+                <img ng-src="views/resource/images/signin-logotype.gif" alt="">
+            </div>
+            <div style="" class="signin-pic">
+                <img ng-src="views/resource/images/signin-pic.gif" alt="">
+            </div>
+        </div>
+        <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12 padding-10" >
+            <div class="cart-shadow  no-padding bg-color-white signin-loading " ng-if="signinFormShow" style="min-height: 0px">
+                <div class="form-box">
+                    <div class="form-logo">
+                        <img ng-src="views/resource/images/signin-logo.gif" alt="">
+                    </div>
+                    <!--<div class="form-title">-->
+
+                        <!--{{'signin' | translate}}-->
+                    <!--</div>-->
+                    <div class="form-desc form-link">
+                        {{'signin_with_developer_account' | translate}}
+                    </div>
+                    <form class="form-content" ng-submit="signinFunc()">
+                        <div class="col-md-12 no-padding">
+                            <div class="form-group margin-bottom-40">
+                                <!--<label for="InputUserAccount">{{'user_account' | translate}}</label>-->
+                                <input
+                                        ng-model="signin.userName"
+                                        type="text"
+                                        class="form-control ltr-data text-align-left"
+                                        ng-class="{'error-input' : errorUsername, '':!errorUsername}"
+                                        id="InputUserAccount"
+                                        placeholder="{{'user_account' | translate}}"
+                                        ng-change="checkInput('userName')"
+                                        aria-describedby="userAccountHelp"
+                                >
+                                <small style="height: 10px;" id="userAccountHelp" class="form-text text-muted">{{errorUsername | translate}}</small>
+                            </div>
+                            <div class="form-group">
+                                <!--<label for="InputPassword1">{{'password' | translate}}</label>-->
+                                <input
+                                        ng-model="signin.password"
+                                        type="password"
+                                        ng-change="checkInput('password')"
+                                        class="form-control ltr-data text-align-left"
+                                        placeholder="{{'password' | translate}}"
+                                        ng-class="{'error-input' : errorPassword, '':!errorPassword}"
+                                        id="InputPassword1"
+                                >
+                                <small id="passwordHelp" class="form-text text-muted">{{errorPassword | translate}}</small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 col-xs-12 no-padding form-link">
+                            <!--<a  ng-href="/forgotpassword">{{'reset_password' | translate}}</a>-->
+                            <a  ng-href="javaScript;:" ng-click="redirectFunction('reset_password')">{{'reset_password' | translate}}</a>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-btn-box">
+                            <!--<div-->
+                                    <!--vc-recaptcha-->
+                                    <!--theme="'light'"-->
+                                    <!--key="model.key"-->
+                                    <!--on-create="setWidgetId(widgetId)"-->
+                                    <!--on-success="setResponse(response)"-->
+                                    <!--on-expire="cbExpiration()"-->
+                                    <!--lang="fa"-->
+                            <!--&gt;</div>-->
+                            <!--&lt;!&ndash;<button ng-disabled="!signin.password || !signin.userName" type="submit" ng-click="signinFunc()" class="btn form-orange-btn signin">{{'signin' | translate}}</button>&ndash;&gt;-->
+                            <button ng-disabled="!signin.password || !signin.userName || errorPassword || errorUsername" type="submit"  class="btn form-orange-btn form-link signin">{{'signin' | translate}}</button>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 no-padding form-link text-align-center">
+                            <!--<a  ng-href="/signup">{{'signup' | translate}}</a>-->
+                            <a  ng-href="javascript;:" ng-click="redirectFunction('signup')">{{'signup' | translate}}</a>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 no-padding ">
+                            <small class="form-text text-muted text-align-center">
+                                {{errorResponce | translate}}
+                            </small>
+                        </div>
+                        <div style="clear: both;"></div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="cart-shadow  no-padding bg-color-white signin-loading " ng-if="signupFormShow" style="min-height: 0px">
+                    <div class="form-box">
+                        <div class="form-logo">
+                            <img ng-src="views/resource/images/signin-logo.gif" alt="">
+                        </div>
+                        <div class="form-title">
+
+                            {{'signup' | translate}}
+                        </div>
+                        <div class="form-desc">
+                            {{'send_password_to_mobile_number' | translate}}
+                        </div>
+                        <form class="form-content" ng-submit="signinFunc()">
+                            <div class="col-md-12 no-padding">
+                                <div class="form-group margin-bottom-40">
+                                    <!--<label for="InputUserAccount">{{'user_account' | translate}}</label>-->
+                                    <input
+                                            ng-model="signupForm.userName.subject"
+                                            type="text"
+                                            ng-model-options='{ debounce: debounceTime }'
+                                            class="form-control ltr-data text-align-left"
+                                            ng-class="{'error-input' : signupForm.userName.error, '':!signupForm.userName.error}"
+                                            id="InputUserAccountSignup"
+                                            placeholder="{{'user_account' | translate}}"
+                                            ng-change="checkValidate('userName')"
+                                            aria-describedby="userAccountHelpSignup"
+                                    >
+                                    <small style="height: 10px;" id="userAccountHelpSignup" class="form-text text-muted">
+                                        {{signupForm.userName.error | translate}}
+                                    </small>
+                                </div>
+                                <div class="form-group margin-bottom-40">
+                                    <!--<label for="InputUserAccount">{{'user_account' | translate}}</label>-->
+                                    <input
+                                            ng-model="signupForm.email.subject"
+                                            type="text"
+                                            class="form-control ltr-data text-align-left"
+                                            ng-model-options='{ debounce: debounceTime }'
+                                            ng-class="{'error-input' : signupForm.email.error, '':!signupForm.email.error}"
+                                            id="InputEmailAccountSignup"
+                                            placeholder="{{'email' | translate}}"
+                                            ng-change="checkValidate('email')"
+                                            aria-describedby="emailHelp"
+                                    >
+                                    <small style="height: 10px;" id="emailHelp" class="form-text text-muted">
+                                        {{signupForm.email.error | translate}}
+                                    </small>
+                                </div>
+                                <div class="form-group margin-bottom-40">
+                                    <!--<label for="InputUserAccount">{{'user_account' | translate}}</label>-->
+                                    <input
+                                            ng-model="signupForm.mobileNumber.subject"
+                                            type="text"
+                                            class="form-control ltr-data text-align-left"
+                                            ng-class="{'error-input' : signupForm.mobileNumber.error, '':!signupForm.mobileNumber.error}"
+                                            id="MobileNumber"
+                                            ng-model-options='{ debounce: debounceTime }'
+                                            mask="99 999 999 9999"
+                                            placeholder="{{'mobile' | translate}}"
+                                            ng-change="checkValidate('mobileNumber')"
+                                            aria-describedby="mobileHelp"
+                                    >
+                                    <small style="height: 10px;" id="mobileHelp" class="form-text text-muted">
+                                        {{signupForm.mobileNumber.error | translate}}
+                                    </small>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 col-sm-12 col-xs-12 no-padding form-link">
+                                <a  ng-href="javaScript;:" ng-click="redirectFunction('reset_password')">{{'reset_password' | translate}}</a>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 form-btn-box">
+                                <button ng-disabled="signupFormSubmitBtn" type="submit" ng-click="signupFunc()"  class="btn form-orange-btn signin">{{'signup' | translate}}</button>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 no-padding form-link text-align-center">
+                                <!--<a  ng-href="/signup">{{'signup' | translate}}</a>-->
+                                <a  ng-href="javascript;:" ng-click="redirectFunction('signin')">{{'signin' | translate}}</a>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 no-padding ">
+                                <small class="form-text text-muted text-align-center">
+                                    {{errorResponce | translate}}
+                                </small>
+                            </div>
+                            <div style="clear: both;"></div>
+                        </form>
+                    </div>
+                </div>
+
+            <div class="cart-shadow  no-padding bg-color-white signin-loading " ng-if="forgotPasswordFormShow" style="min-height: 0px">
+                <div class="form-box">
+                    <div class="form-logo">
+                        <img ng-src="views/resource/images/signin-logo.gif" alt="">
+                    </div>
+                    <div class="form-title">
+
+                        {{'reset_password' | translate}}
+                    </div>
+                    <div class="form-desc">
+                        {{'send_reset_password_link' | translate}}
+                    </div>
+                    <form class="form-content" ng-submit="signinFunc()">
+                        <div class="col-md-12 no-padding">
+                            <div class="form-group">
+                                <!--<label for="InputUserAccount">{{'user_account' | translate}}</label>-->
+                                <input
+                                        ng-model="forgotPassword.mobile"
+                                        type="text"
+                                        class="form-control ltr-data text-align-left"
+                                        ng-class="{'error-input' : forgotPassword.mobileError, '':!forgotPassword.mobileError}"
+                                        id="MobileNumberForgotPassword"
+                                        ng-model-options='{ debounce: debounceTime }'
+                                        mask="99 999 999 9999"
+                                        placeholder="{{'mobile' | translate}}"
+                                        ng-change="checkValidateForgotPassword()"
+                                        aria-describedby="mobileHelpForgotPassword"
+                                >
+                                <small style="height: 10px;" id="mobileHelpForgotPassword" class="form-text text-muted">
+                                    {{forgotPassword.mobileError | translate}}
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 col-xs-12 no-padding form-link">
+                            <a  ng-href="javaScript;:" ng-click="redirectFunction('signin')">{{'signin' | translate}}</a>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-btn-box">
+                            <button ng-disabled="!forgotPassword.mobile || forgotPassword.mobileError" type="submit" ng-click="resetFunc()"  class="btn form-orange-btn signin">{{'reset_password' | translate}}</button>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 no-padding form-link text-align-center">
+                            <!--<a  ng-href="/signup">{{'signup' | translate}}</a>-->
+                            <a  ng-href="javascript;:" ng-click="redirectFunction('signup')">{{'signup' | translate}}</a>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 no-padding ">
+                            <small class="form-text text-muted text-align-center">
+                                {{errorResponce | translate}}
+                            </small>
+                        </div>
+                        <div style="clear: both;"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-7 col-md-12 col-sm-12 col-xs-12 padding-10 mobile-none form-image-box">
+            <div class="logo-type">
+                <img ng-src="views/resource/images/signin-logotype.gif" alt="">
+            </div>
+            <div style="" class="signin-pic">
+                <img ng-src="views/resource/images/signin-pic.gif" alt="">
+            </div>
+        </div>
+    </div>
+    <!--<div class="footer-before color-black">Powered by Jhoobin Co.</div>-->
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade " id="producerModalLIst" tabindex="-1" role="dialog" aria-labelledby="producerModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title form-link" id="producerModalLongTitle">{{'producer_list' | translate}}</div>
+            </div>
+            <div class="modal-body">
+                <div class="form-check" ng-repeat="producer in producerList">
+                    <label class="form-check-label">
+                        <input  class="form-check-input" ng-model="producerSelected" type="radio" name="produceRadioButton" id="{{producer['id']}}" ng-value="producer['id']" ng-click="changeProducer(producer)"> <div style="margin-right: 20px">{{producer['name']}}</div>
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="float-left">
+                    <button type="button" class="btn btn-secondary pointer" data-dismiss="modal">{{'give_up' | translate}}</button>
+                    <button type="button" class="btn form-orange-btn  pointer" ng-click="runProject()">{{'signin' | translate}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade " id="legalInit" tabindex="-1" role="dialog" aria-labelledby="legalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="legalTitle">شرایط و ضوابط</h5>
+            </div>
+            <div class="modal-body" style="max-height: 70vh;min-height: 30vh;overflow-y: auto">
+                <p class="card-text" style="line-height: 40px;text-align: justify;">با تایید این صفحه حساب کاربری شما در سامانه آماروید راه اندازی خواهد شد. </p>
+
+
+                    <div class="check-input" style="position: relative">
+                        <input type="checkbox" id="day" class="checkbox" ng-model="confirmation">
+                        <div style="display: inline-block;padding: 5px;position: absolute;top: -10px;">کلیه شرایط و ضوابط مورد تایید است.</div>
+                    </div>
+
+                <div class="modal-footer ">
+                    <div class="float-left">
+                        <button type="button" class="btn btn-secondary pointer" data-dismiss="modal">{{'give_up' | translate}}</button>
+                        <button type="button" class="btn form-orange-btn  pointer" ng-disabled="!confirmation" ng-click="initApp()">{{'apply' | translate}}</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade " id="registerAndForgotPassword" tabindex="-1" role="dialog" aria-labelledby="registerAndForgotPasswordTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title form-link" id="registerAndForgotPasswordTitle">{{registerANdForgotPasswordTitle | translate}}</div>
+            </div>
+            <div class="modal-body" >
+                <p class="card-text" style="line-height: 40px;text-align: justify;">{{registerANdForgotPasswordContent | translate}} </p>
+
+            </div>
+            <div class="modal-footer ">
+                <div class="float-left">
+                    <button type="button" class="btn btn-secondary pointer" data-dismiss="modal">{{'give_up' | translate}}</button>
+                    <a class="btn form-orange-btn  pointer" ng-href="{{registerANdForgotPasswordLink}}" >{{'continue' | translate}}</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,93 @@
+<div
+        ng-if="viewType == 'grid' && contentType=='directory'"
+        class="folder box-shadow"
+        id="item-id-grid-{{itemDropDown}}"
+        ng-dblclick="dblclickFolder(pageContent['Name'])"
+        ng-click="clickFolder(pageContent['Name'])"
+        ng-right-click="clickFolder(pageContent['Name'])"
+        ng-class="{'active' : selectedItem ==pageContent['Name']}"
+>
+    <div class="folder-image directory-image">
+        <div class="image-content"></div>
+    </div>
+    <div class="folder-title">{{pageContent['Name']}}-{{itemDropDown}}</div>
+</div>
+
+
+
+
+<div
+        ng-if="viewType == 'grid' && contentType=='file'"
+        class="file box-shadow"
+        id="item-id-grid-{{itemDropDown}}"
+        ng-dblclick="dblclickFolder(pageContent['Name'])"
+        ng-click="clickFolder(pageContent['Name'])"
+        ng-right-click="clickFolder(pageContent['Name'])"
+>
+    <div class="file-image">
+        <div class="{{pageContent['Mime']}}-image-128"></div>
+        <!--<img ng-src="views/resource/images/ic_folder_black_24px.svg" alt="">-->
+    </div>
+    <div class="file-footer">
+        <div class="folder" ng-class="{'active' : selectedItem ==pageContent['Name']}">
+            <div class="folder-image {{pageContent['Mime']}}-image-16">
+                <div class="image-content "></div>
+            </div>
+            <div class="folder-title">{{pageContent['Name']}}-{{itemDropDown}}</div>
+        </div>
+    </div>
+</div>
+
+
+<div ng-if="viewType == 'list'">
+    <table class="table table-white">
+        <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Owner</th>
+            <th scope="col">Last Modified</th>
+            <th scope="col">File Size</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr
+                ng-repeat="item in pageContent"
+                ng-dblclick="dblclickFolder(item['Name'], viewType)"
+                ng-click="clickFolder(item['Name'], viewType)"
+                ng-right-click="clickFolder(item['Name'])"
+                context-menu="item['Mime'] ? menuOptions['file'] : menuOptions['directory']"
+                context-menu-empty-text="'SOME TEXT FOR EMPTY'"
+        >
+            <td
+
+            >
+                <div class="folder"
+                     data-toggle="{{item['move'] ? 'dropdown' : ''}}"
+                     id="item-id-list-{{item['move'] || $index}}"
+                     ng-class="{'active' : selectedItem ==item['Name']}">
+                    <div class="folder-image {{item['Mime'] ? item['Mime']+'-image-16' : 'directory-image'}}" >
+                        <div class="image-content "> </div>
+                    </div>
+                    <div class="folder-title">{{item['Name']}}</div>
+                </div>
+            </td>
+            <td ng-class="{'active' : selectedItem ==item['Name']}">{{item['Owner']}}</td>
+            <td ng-class="{'active' : selectedItem ==item['Name']}">{{item['LastModified']}}</td>
+            <td ng-class="{'active' : selectedItem ==item['Name']}">{{item['FileSize']}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<!--<move-directive ng-show="itemDropDown" class="dropdown-menu box-shadow" role="menu" aria-labelledby="menu1" style="width: auto; margin-top: 12px;padding: 0"></move-directive>-->
+
+<!--<div ng-show="itemDropDown" class="dropdown-menu" role="menu" aria-labelledby="menu1">-->
+    <!--<ul >-->
+        <!--<li role="presentation"><a role="menuitem" tabindex="-1" href="#">HTML</a></li>-->
+        <!--<li role="presentation"><a role="menuitem" tabindex="-1" href="#">CSS</a></li>-->
+        <!--<li role="presentation"><a role="menuitem" tabindex="-1" href="#">JavaScript</a></li>-->
+        <!--<li role="presentation" class="divider"></li>-->
+        <!--<li role="presentation"><a role="menuitem" tabindex="-1" href="#">About Us</a></li>-->
+    <!--</ul>-->
+<!--</div>-->

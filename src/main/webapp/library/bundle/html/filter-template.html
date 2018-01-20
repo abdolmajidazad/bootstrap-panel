@@ -1,0 +1,84 @@
+
+<div class="col-md-12 col-sm-12 col-xs-12 no-padding filter-template-{{state}} management" >
+
+    <ul class="col-lg-3 col-md-12  col-sm-12 col-xs-12 no-padding" >
+        <li
+                ng-repeat="app  in jhoobinJhubDataListDirective"
+
+        ><a
+                ng-click="setPanelName(app, 'packageName')"
+                ng-class="{true : 'active', false : ''}[app['packageName'] == (filterPanel['packageName'] ? filterPanel['packageName'] : jhoobinJhubDataDirective) ]"
+
+        >{{app['name']}}</a></li>
+    </ul>
+    <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 version-box" ng-class="{true : 'mobile-none', false : ''}[state === 'btn']">
+
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 "  ng-if="versionsList && versionsList.length">
+            <h5 class="text-align-center color-gray padding-5">{{'app_versions' | translate}}</h5>
+            <input type="text" class="form-control" ng-model="search.versionCodes" placeholder="{{'search' | translate}}">
+            <div class="header-versions-box">
+                <button
+                        ng-repeat="versions  in versionsList | filter:search.versionCodes "
+                        class="dropdown-item"
+                        type="button"
+                        ng-class="{true : 'active', false : ''}[versions ==filterPanel['versionCode'] ]"
+                        ng-click="setPanelName(versions, 'versionCode')"
+                >{{versions}}<span class="float-left" ng-if="versions ==filterPanel['versionCode']">X</span></button>
+            </div>
+
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 " ng-if="tagList && tagList.length">
+            <h5 class="text-align-center color-gray padding-5">{{'id' | translate}} 1</h5>
+            <input type="text" class="form-control" ng-model="search.tags"  placeholder="{{'search' | translate}}">
+            <div class="header-versions-box">
+                <button
+                        ng-repeat="tag in tagList | filter:search.tags"
+                        class="dropdown-item"
+                        type="button"
+                        ng-class="{true : 'active', false : ''}[tag ==filterPanel['tag'] ] "
+                        ng-click="setPanelName(tag,'tag')"
+                >{{tag || 'null'}}<span class="float-left" ng-if="tag ==filterPanel['tag']">X</span></button>
+            </div>
+
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12" ng-if="tags2List && tags2List.length">
+            <h5 class="text-align-center color-gray padding-5">{{'id' | translate}} 2</h5>
+            <input type="text" class="form-control" ng-model="search.tag2s"  placeholder="{{'search' | translate}}">
+            <div class=" header-versions-box">
+                <button
+                        ng-repeat="tags2 in tags2List | filter:search.tag2s"
+                        class="dropdown-item"
+                        type="button"
+                        ng-class="{true : 'active', false : ''}[tags2 ==filterPanel['tag2']  ]"
+                        ng-click="setPanelName(tags2, 'tag2')"
+                >{{tags2 || 'null'}}<span class="float-left" ng-if="tags2 ==filterPanel['tag2'] ">X</span></button>
+            </div>
+
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 " ng-if="tags3List && tags3List.length">
+            <h5 class="text-align-center color-gray padding-5">{{'id' | translate}} 3</h5>
+            <input type="text" class="form-control" ng-model="search.tag3s"  placeholder="{{'search' | translate}}">
+            <div class="header-versions-box">
+                <button
+                        ng-repeat="tags3  in tags3List | filter:search.tag3s"
+                        class="dropdown-item"
+                        type="button"
+                        ng-class="{true : 'active', false : ''}[tags3 ==filterPanel['tag3'] ]"
+                        ng-click="setPanelName(tags3, 'tag3')"
+                >{{tags3 || 'null'}} <span class="float-left" ng-if="tags3 ==filterPanel['tag3'] ">X</span></button></button>
+            </div>
+
+        </div>
+    </div>
+    <div style="clear: both"></div>
+    <div class="box-dropdown-footer border-gray">
+        <div class="col-md-12 col-sm-12 col-xs-12 color-gray no-padding">
+            <div class="footer-desc pointer color-blue font-size-12" ng-click="addFilter()">{{'apply' | translate}}</div>
+            <div class="footer-desc pointer font-size-12" ng-click="toggleAppList()">{{'give_up' | translate}}</div>
+            <a ng-show="state=='btn'" class="footer-desc pointer font-size-12 color-blue mobile-block" ng-href="./filter" >{{'more_filter' | translate}}</a>
+        </div>
+    </div>
+</div>
+
+
+

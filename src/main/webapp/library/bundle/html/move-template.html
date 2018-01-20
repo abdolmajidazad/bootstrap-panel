@@ -1,0 +1,27 @@
+
+
+<div class="move-box">
+    <div class="move-box-header">
+        <div class="folder-image directory-image display-inline-block" >
+            <div class="image-content"> </div>
+        </div>
+        <div class="display-inline-block title">My Drive</div>
+        <div class="display-inline-block header-menu close-icon"></div>
+    </div>
+    <div class="move-box-content">
+        <div ng-repeat="item in dataList" ng-class="{true : 'disable', false : ''}[!!item['Mime']]">
+            <div class="folder-image {{item['Mime'] ? item['Mime']+'-image-16' : 'directory-image'}} display-inline-block" >
+                <div class="image-content"> </div>
+            </div>
+            <div class="move-title display-inline-block">{{item['Name']}}</div>
+
+        </div>
+    </div>
+    <div class="move-box-footer">
+
+        <div class="left">
+            <div class="button">move here</div>
+        </div>
+        <div class="display-inline-block header-menu new-folder-icon"></div>
+    </div>
+</div>

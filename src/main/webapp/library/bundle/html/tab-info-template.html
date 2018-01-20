@@ -1,0 +1,12 @@
+<div ng-repeat="(tabName, tabInfoArray) in config" class="margin-bottom-12">
+    <div>
+        <div class="bold-font left-right-padding-10">{{tabName | translate}}</div>
+        <hr class="hr-black">
+    </div>
+
+    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist">
+        <a ng-repeat="itemName in tabInfoArray" ng-click="tabInfoSelected(itemName)" class="nav-link" ng-class="{true : 'active'}[itemName['active']]" id="v-pills-{{itemName['title']}}-tab" role="tab" aria-controls="v-pills-{{itemName['title']}}" aria-expanded="false">
+            {{itemName['title'] | translate}}
+        </a>
+    </div>
+</div>

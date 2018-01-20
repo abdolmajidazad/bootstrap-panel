@@ -1,0 +1,22 @@
+<ul class="nav nav-pills flex-column">
+    <li class="nav-item overflow-text"
+        ng-repeat="menu in menuBar"
+        ng-click="setActiveMenu(menu['sref'], menu['url'])"
+    >
+        <a
+                class="nav-link color-black"
+                ng-style="{'border-top' : menu['isFooter'] ? '1px solid #d6d6d6' : ''}"
+                ng-class="{true : 'active', false : '' }[generalData['activeMenu'] ==menu['url']]"
+                ng-href="{{menu['url']}}"
+                target = "{{menu['target'] || ''}}"
+        >
+            <div
+                    class="image-menu {{menu['img']}}-icon"
+
+            ></div>
+            <div class="display-inline-block">
+                {{menu['title'] | translate}}
+            </div>
+        </a>
+    </li>
+</ul>

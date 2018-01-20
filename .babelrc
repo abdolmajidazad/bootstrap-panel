@@ -1,0 +1,17 @@
+{
+  "presets": [
+    [
+      "es2015",
+      {
+        "modules": false
+      }
+    ]
+  ],
+  "plugins": [
+
+    "transform-object-rest-spread",
+    "transform-decorators-legacy"
+  ]
+}
+//npm install --save-dev babel-plugin-external-helpers
+//npm install --save-dev babel-plugin-transform-object-rest-spread

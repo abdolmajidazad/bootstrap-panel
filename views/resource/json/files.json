@@ -1,0 +1,175 @@
+{
+    "development" : {
+        "index" : {
+            "css" : [
+                {
+                    "path" : "library/bower_components/nprogress/nprogress.css?@@timeStampVersion",
+                    "position" : "end"
+                },
+                {
+                    "path" : "library/bower_components/persian-datepicker/dist/css/persian-datepicker-0.4.5.css?@@timeStampVersion",
+                    "position" : "end"
+                },{
+                    "path" : "views/resource/css/bundle.css?@@timeStampVersion",
+                    "position" : "end"
+                }
+            ],
+            "js" : [
+
+                {
+                    "path" : "library/bower_components/angular-translate/angular-translate.min.js?@@timeStampVersion",
+                    "position" : "start"
+                },
+                {
+                    "path" : "library/bower_components/persian-date/dist/0.1.8/persian-date-0.1.8.min.js?@@timeStampVersion",
+                    "position" : "end"
+                },{
+                    "path" : "library/bower_components/angular-update-meta/dist/update-meta.min.js?@@timeStampVersion",
+                    "position" : "end"
+                },{
+                    "path" : "library/bower_components/nprogress/nprogress.js?@@timeStampVersion",
+                    "position" : "end"
+                },{
+                    "path" : "library/bower_components/persian-datepicker/lib/persian-date.js?@@timeStampVersion",
+                    "position" : "end"
+                },{
+                    "path" : "library/bower_components/persian-datepicker/dist/js/persian-datepicker-0.4.5.min.js?@@timeStampVersion",
+                    "position" : "end"
+                },{
+                    "path" : "library/bower_components/js-sha1/build/sha1.min.js?@@timeStampVersion",
+                    "position" : "end"
+                },{
+                    "path" : "library/bower_components/angular-bootstrap-contextmenu/contextMenu.js?@@timeStampVersion",
+                    "position" : "end"
+                }
+            ]
+        },
+        "pages" : {
+            "root" : {
+                "css" : [
+                ],
+                "js" : [
+
+                    "views/pages/signin/signin.js?@@timeStampVersion",
+                    "views/tpl/footer/footer.js?@@timeStampVersion",
+                    "views/tpl/sidebar/left/sidebar.js?@@timeStampVersion",
+                    "views/tpl/sidebar/right/sidebar.js?@@timeStampVersion",
+                    "views/tpl/header/header.js?@@timeStampVersion"
+                ]
+            },
+            "notFound" : {
+                "css" : [],
+                "js" : [
+
+
+                    "views/pages/404/404.js?@@timeStampVersion"
+                ]
+            },
+            "signin" : {
+                "css" : [],
+                "js" : [
+                    "views/pages/signin/signin.js?@@timeStampVersion"
+                ]
+            },
+            "myDrive" : {
+                "css" : [],
+                "js" : [
+                    "views/pages/myDrive/myDrive.js?@@timeStampVersion"
+                ]
+            },
+            "recent" : {
+                "css" : [],
+                "js" : [
+                    "views/pages/recent/recent.js?@@timeStampVersion"
+                ]
+            }
+        }
+
+
+    },
+    "production" : {
+        "index" : {
+            "css" : [
+                {
+                    "path" : "library/bower_components/nprogress/nprogress.css?@@timeStampVersion",
+                    "position" : "end"
+                },
+                {
+                    "path" : "library/bower_components/persian-datepicker/dist/css/persian-datepicker-0.4.5.css?@@timeStampVersion",
+                    "position" : "end"
+                },{
+                    "path" : "views/resource/css/bundle.css?@@timeStampVersion",
+                    "position" : "end"
+                }
+            ],
+            "js" : [
+
+                {
+                    "path" : "library/bower_components/angular-translate/angular-translate.min.js?@@timeStampVersion",
+                    "position" : "start"
+                },
+                {
+                    "path" : "library/bower_components/persian-date/dist/0.1.8/persian-date-0.1.8.min.js?@@timeStampVersion",
+                    "position" : "end"
+                },{
+                    "path" : "library/bower_components/angular-update-meta/dist/update-meta.min.js?@@timeStampVersion",
+                    "position" : "end"
+                },{
+                    "path" : "library/bower_components/nprogress/nprogress.js?@@timeStampVersion",
+                    "position" : "end"
+                },{
+                    "path" : "library/bower_components/persian-datepicker/lib/persian-date.js?@@timeStampVersion",
+                    "position" : "end"
+                },{
+                    "path" : "library/bower_components/persian-datepicker/dist/js/persian-datepicker-0.4.5.min.js?@@timeStampVersion",
+                    "position" : "end"
+                },{
+                    "path" : "library/bower_components/js-sha1/build/sha1.min.js?@@timeStampVersion",
+                    "position" : "end"
+                },{
+                    "path" : "library/bower_components/angular-bootstrap-contextmenu/contextMenu.js?@@timeStampVersion",
+                    "position" : "end"
+                }
+            ]
+        },
+        "pages" : {
+            "root" : {
+                "css" : [
+                ],
+                "js" : [
+                    "views/pages/signin/signin.min.js?@@timeStampVersion",
+                    "views/tpl/footer/footer.min.js?@@timeStampVersion",
+                    "views/tpl/sidebar/left/sidebar.min.js?@@timeStampVersion",
+                    "views/tpl/sidebar/right/sidebar.min.js?@@timeStampVersion",
+                    "views/tpl/header/header.min.js?@@timeStampVersion"
+                ]
+            },
+            "notFound" : {
+                "css" : [],
+                "js" : [
+
+
+                    "views/pages/404/404.min.js?@@timeStampVersion"
+                ]
+            },
+            "signin" : {
+                "css" : [],
+                "js" : [
+                    "views/pages/signin/signin.min.js?@@timeStampVersion"
+                ]
+            },
+            "myDrive" : {
+                "css" : [],
+                "js" : [
+                    "views/pages/myDrive/myDrive.min.js?@@timeStampVersion"
+                ]
+            },
+            "recent" : {
+                "css" : [],
+                "js" : [
+                    "views/pages/recent/recent.min.js?@@timeStampVersion"
+                ]
+            }
+        }
+    }
+}

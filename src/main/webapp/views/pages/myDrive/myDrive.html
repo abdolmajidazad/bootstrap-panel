@@ -1,0 +1,28 @@
+<div class="application-loading" ng-animate-children></div>
+
+
+
+<div class="container-float ltr-data" >
+    <div ng-show="!generalData['viewType']">
+        <div class="padding-5" ng-show="data['Buckets']['folder']">
+            <div class="rtl-data content-header">{{'folders' | translate}}</div>
+            <view-directive page-content="data['Buckets']['folder']" view-type="'grid'" content-type="'directory'"></view-directive>
+        </div>
+        <div class="padding-5" ng-show="data['Buckets']['file']">
+            <div class="rtl-data content-header">{{'files' | translate}}</div>
+            <view-directive page-content="data['Buckets']['file']" view-type="'grid'" content-type="'file'"></view-directive>
+        </div>
+
+    </div>
+    <div ng-show="generalData['viewType']" class="padding-5" ng-show="dataList">
+        <view-directive page-content="dataList" view-type="'list'"></view-directive>
+    </div>
+
+
+    <move-directive id="move-directive-id"  class="dropdown-menu box-shadow" role="menu" aria-labelledby="menu1" style="width: auto; margin-top: 12px;padding: 0; position: absolute"></move-directive>
+
+</div>
+
+
+
+

@@ -1,0 +1,13 @@
+<div class="file box-shadow" ng-dblclick="dblclickFolder(item['Name'])" ng-click="clickFolder(item['Name'])">
+    <div class="file-image">
+        <img ng-src="views/resource/images/ic_folder_black_24px.svg" alt="">
+    </div>
+    <div class="file-footer">
+        <div class="folder" ng-class="{'active' : selectedItem ==item['Name']}">
+            <div class="folder-image">
+                <div></div>
+            </div>
+            <div class="folder-title">{{item['Name']}}</div>
+        </div>
+    </div>
+</div>

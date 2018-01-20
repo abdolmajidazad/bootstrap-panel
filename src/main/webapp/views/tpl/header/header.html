@@ -1,0 +1,56 @@
+
+<update-title title="{{'website_title' | translate}}"></update-title>
+<div class="btn-site-menu">
+    <div class="dropdown">
+        <button class="btn dropdown-toggle"  type="button" ng-click="toggleFunc(toggleSide)">
+            <img ng-src="views/resource/images/ic_menu_black_48dp.png" alt="">
+        </button>
+    </div>
+</div>
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <a class="navbar-brand" ng-href="{{jhoobinJhubDataSelected ? '/report/home' : ''}}">
+        <img ng-src="views/resource/images/signin-logo.gif" alt="" width="50">
+    </a>
+
+    <div class="dropdown header-drop-down-btn" ng-if="generalData['jhoobinJhubDataSelected']">
+        <button class="btn dropdown-toggle header-drop-down-btn" type="button" aria-haspopup="true" aria-expanded="false" ng-click="toggleAppList()">
+            <span class="form-link">
+                {{generalData['jhoobinJhubDataSelected'] |   translate}}
+            </span>
+        </button>
+        <div class="dropdown-menu dropdown-menu-app-list management " style="width: 188px"  ng-class="{true : 'block-display', false:''}[generalData['toggleAppListStatus']]">
+            <ul>
+                <li
+                        ng-repeat="app  in generalData['jhoobinJhubDataList']"
+
+                ><a
+                        ng-click="setPanelName(app)"
+                        ng-class="{true : 'active', false : ''}[app['packageName'] == filterPanel() ]"
+
+                >{{app['name']}}</a></li>
+            </ul>
+
+        </div>
+    </div>
+
+    <!--<div class="profile-info mobile-none">-->
+        <!--<div class="form-link">{{generalData['jhoobinJhubDataApp']['name']}}</div>-->
+        <!--<div class="color-gray ltr-data">{{generalData['jhoobinJhubDataApp']['email']}}</div>-->
+    <!--</div>-->
+    <div class="exit-info">
+        <div class="profile-info mobile-none">
+            <div class="form-link">{{generalData['jhoobinJhubDataApp']['name']}}</div>
+            <div class="color-gray ltr-data">{{generalData['jhoobinJhubDataApp']['email']}}</div>
+        </div>
+        <!--<div class="exit-btn" data-toggle="tooltip" title="{{'exit' | translate}}"  ng-click="signoutFunc()" ></div>-->
+        <div class="header-menu-icon">
+            <div class="header-menu " ng-click="generalData['viewType'] = !generalData['viewType']" ng-class="{true : 'grid-icon', false:'list-icon'}[generalData['viewType']]"></div>
+            <div class="header-menu info-icon" ng-click="changeInfoStatus()" ng-class="{true : 'active', false:''}[generalData['informationData']]"></div>
+            <div class="header-menu exit-icon" ng-click="signoutFunc()"></div>
+        </div>
+
+    </div>
+
+</nav>
+
+

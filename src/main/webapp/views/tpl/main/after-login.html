@@ -1,0 +1,34 @@
+<style>
+    html{
+        min-height: 101%;
+
+    }
+
+    html, body {
+        overflow-x: hidden;
+        padding-top: 2.5rem;
+    }
+</style>
+<span>
+    <div ui-view="header"></div>
+    <div class="container-fluid  margin-bottom-40 ">
+        <div class="row">
+            <nav class="col-md-2 col-sm-4 col-xs-7 bg-light sidebar right">
+                <div ui-view="rightSidebar"></div>
+            </nav>
+            <main
+                    class="col-md-10 col-md-offset-2 col-sm-12 col-sm-offset-2  col-xs-12 main-content"
+                    role="main"
+                    context-menu="menuOptions['body']"
+                    context-menu-empty-text="'SOME TEXT FOR EMPTY'"
+            >
+                <div ui-view="afterLogin"  id="main-data-content"></div>
+            </main>
+            <nav class="sidebar left"  id="left-sidebar-information">
+                <div ui-view="leftSidebar"></div>
+            </nav>
+        </div>
+    </div>
+
+    <div ui-view="footer"></div>
+</span>

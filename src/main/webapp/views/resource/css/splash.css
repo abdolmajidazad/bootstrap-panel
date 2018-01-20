@@ -1,0 +1,19 @@
+.application-start{
+    width: 100%;
+}
+
+#loading-image{
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+}
+
+@media (max-width: 768px)  {
+    #loading-image{
+        width: 80%;
+    }
+}

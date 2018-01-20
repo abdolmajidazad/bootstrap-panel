@@ -1,0 +1,209 @@
+
+/*.page-content-compatibility{*/
+    /*min-height: 400px;*/
+    /*overflow: auto;*/
+/*}*/
+/*all css for start page */
+.first-load-page{
+    background-color: #fff;
+    font-family: Tahoma;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 100;
+    bottom: 0;
+    display: block;
+    left: 0;
+    overflow: auto;
+}
+
+.first-load-page .download-content{
+    background-color: #FAFAFA;
+    /*height:70%;*/
+    text-align: center;
+    height: 650px;
+
+}
+
+.first-load-page .signin-content{
+    text-align: center;
+    padding-top: 50px;
+    color:  #F17903;
+    /*height:100%;*/
+    font-size: 25px;
+    position: relative;
+    background-color: #fff;
+    height: 200px;
+}
+
+.first-load-page .signin-content>div{
+    position: absolute;
+    text-align: center;
+    top: 40%;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    margin: auto;
+}
+.download-content .download-content-image-logo{
+    margin-top: 130px;
+}
+.download-content .download-content-image-partsicon{
+    margin-top: 30px;
+}
+.download-content .download-content-image-getbutton{
+    margin-top: 30px;
+    cursor: pointer;
+}
+
+@media (max-width: 480px) {
+
+    .first-load-page{
+        background-color: #FAFAFA;
+        overflow: hidden;
+    }
+
+    .first-load-page .download-content{
+        height:70%;
+    }
+    .download-content .download-content-image-logo{
+        margin-top: 35%;
+        width: 60%;
+    }
+    .download-content .download-content-image-partsicon{
+        margin-top: 20px;
+        width: 60%;
+    }
+    .download-content .download-content-image-getbutton{
+        margin-top: 20px;
+        width: 60%;
+        cursor: pointer;
+    }
+    .first-load-page .signin-content{
+
+        /*color:  #F17903;*/
+        height: 100%;
+        background-color: #FAFAFA;
+
+    }
+
+
+    .first-load-page .signin-content>div{
+        top: 12%;
+    }
+}
+
+
+
+
+/*all css for start page */
+.first-load-page-compatibility{
+    background-color: #fff;
+    font-family: Tahoma;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 100;
+    bottom: 0;
+    display: block;
+    left: 0;
+    overflow: auto;
+}
+
+.first-load-page-compatibility .download-content-compatibility{
+    background-color: #FAFAFA;
+    /*height:30%;*/
+    text-align: center;
+    position: relative;
+    height: 200px;
+
+}
+
+.first-load-page-compatibility .content-compatibility{
+    text-align: center;
+    padding-top: 50px;
+    color:  #FAFAFA;
+    /*height:100%;*/
+    height: 500px;
+    font-size: 25px;
+}
+.download-content-compatibility>img:first-child{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+.content-compatibility .content-compatibility-error-text{
+    color: #d42e2e;
+    font-size: 30px;
+    margin: 20px;
+}
+
+.content-compatibility .content-compatibility-text{
+    color: #000;
+    font-size: 25px;
+    margin: 20px;
+}
+
+.content-compatibility>img{
+    margin-top: 70px;
+}
+
+.content-compatibility-colorline{
+    display: none;
+}
+
+.browser-icon{
+    width: 400px;
+}
+
+@media (max-width: 640px) {
+    .first-load-page-compatibility{
+        overflow: hidden;
+    }
+    /*.download-content-compatibility>img:first-child{*/
+        /*width: 60%;*/
+    /*}*/
+    .browser-icon{
+        width: 60%;
+    }
+
+    .content-compatibility .content-compatibility-text{
+        font-size: 15px;
+    }
+
+    .content-compatibility .content-compatibility-error-text{
+        font-size: 20px;
+    }
+}
+
+
+
+
+
+#navigator_userAgent{
+    display: none;
+    position: fixed;
+    bottom: 0;
+    font-size: 12px;
+    text-align: center;
+    background-color: red;
+    color: #fff;
+    padding: 3px;
+    width: 100%;
+    z-index: 1000;
+}
+
+.force-error-box{
+    direction: ltr;
+    font-family: Tahoma
+}
+
+.force-error-header{
+    padding: 5px;
+    font-size: 12px;
+    font-weight: bold;
+}

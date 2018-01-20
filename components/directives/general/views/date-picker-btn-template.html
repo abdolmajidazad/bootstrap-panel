@@ -1,0 +1,23 @@
+<button type="button" class="btn btn-date-picker" ng-init="toggleBox = false" ng-click="toggleBoxFunc()">
+    {{dateSelected.from}} <span ng-if="dateSelected.from != dateSelected.to"> - {{dateSelected.to}}</span>
+</button>
+<div ng-if="toggleBox" class="date-picker-box" ng-class="{true : 'block-display', false:''}[toggleBox]">
+
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <div class="display-inline-block padding-10">{{'from_date' | translate}}</div>
+        <date-picker-directive class="display-inline-block padding-10" position="'start'" set-date-current="dateSelected['selectFrom']"></date-picker-directive>
+    </div>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <div class="display-inline-block padding-10">{{'to_date' | translate}}</div>
+        <date-picker-directive class="display-inline-block  padding-10" position="'end'" set-date-current="dateSelected['selectTo']"></date-picker-directive>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 margin-bottom-12 ">
+        <button type="button" class="btn  pointer float-left" ng-click="getDateSelected()" ng-disabled="newDateDate['start'] && newDateDate['end']">{{'apply' | translate}}</button>
+        <!--<button type="button" class="btn btn-danger pointer" ng-click="toggleBox = !toggleBox">{{'cancel' | translate}}</button>-->
+
+    </div>
+    <img class="datepicker-close-btn" ng-src="views/resource/images/ic_close_black_18dp.png" alt="" ng-click="closeBox()">
+    <div style="clear: both;"></div>
+
+
+</div>

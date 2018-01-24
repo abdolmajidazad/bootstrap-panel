@@ -19,8 +19,8 @@
             <main
                     class="col-md-10 col-md-offset-2 col-sm-12 col-sm-offset-2  col-xs-12 main-content"
                     role="main"
-                    context-menu="menuOptions['body']"
-                    context-menu-empty-text="'SOME TEXT FOR EMPTY'"
+                    id="main-content-id"
+
             >
                 <div ui-view="afterLogin"  id="main-data-content"></div>
             </main>
@@ -32,3 +32,9 @@
 
     <div ui-view="footer"></div>
 </span>
+
+
+<rename-directive></rename-directive>
+<new-folder-directive></new-folder-directive>
+<remove-directive></remove-directive>
+<file-upload-directive></file-upload-directive>

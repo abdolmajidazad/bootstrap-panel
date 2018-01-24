@@ -7,17 +7,21 @@ let myApp = angular.module('myApp',
         'ui.router',
         'pascalprecht.translate',
         'ngSanitize',
-        'ui.bootstrap.contextMenu'
+        'ui.bootstrap.contextMenu',
+        'angular-progress-arc'
     ]);
+
+
+
 
 /**
  * root controller
  * this controller load in first call project
  */
-myApp.controller("rootCtrl", ['$scope', '$rootScope','contextMenuFactory', function ($scope, $rootScope, contextMenuFactory) {
+myApp.controller("rootCtrl", ['$scope', '$rootScope', function ($scope, $rootScope) {
 
 
-    $scope.menuOptions = contextMenuFactory;
+    // $scope.menuOptions = contextMenuFactory;
     $rootScope.startDate = new Date();
     $rootScope.generalData = {}
 }]);
@@ -208,6 +212,7 @@ myApp.config(["$stateProvider", "$urlRouterProvider", "$controllerProvider", "$c
                         controller: "MyDriveCtrl",
                     }
                 },
+
                 css: appIncludeFilesJson[appEnvironment].pages.myDrive.css,
                 resolve:
                     {
@@ -327,6 +332,7 @@ myApp.run(["$rootScope", "$state", "$stateParams", "$urlRouter", "$location", "$
 
     });
     $rootScope.$on('$locationChangeSuccess', function (e, newUrl, oldUrl) {
+
 
         /**
          * remove modal when state change

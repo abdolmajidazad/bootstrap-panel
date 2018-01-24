@@ -3,8 +3,11 @@
 myApp.controllerProvider.register('MyDriveCtrl', ['$scope','$state','$rootScope','contextMenuFactory', function ($scope, $state, $rootScope,contextMenuFactory) {
 
 
+
+
     console.log("contextMenuFactory:", contextMenuFactory)
 
+    $scope.menuOptions = contextMenuFactory;
     $scope.data = {
         Buckets : {
             "file" : [
@@ -83,8 +86,9 @@ myApp.controllerProvider.register('MyDriveCtrl', ['$scope','$state','$rootScope'
     }
 
 
-    $scope.dataList = [...$scope.data['Buckets']['folder'], ...$scope.data['Buckets']['file']]
+    $scope.dataList = [...$scope.data['Buckets']['folder'], ...$scope.data['Buckets']['file']];
     console.log("$scope.dataList:", $scope.dataList)
+    // https://github.com/alexcrack/angular-ui-notification
 
 
 

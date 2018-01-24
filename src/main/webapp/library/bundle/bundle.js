@@ -1,5 +1,247 @@
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
+myApp.directive("fileUploadDirective", function () {
+    return {
+        restrict: "E",
+        scope: {},
+        templateUrl: 'library/bundle/html/file-upload-template.html?1516790568201',
+        controller: 'fileUploadDirectiveController'
+    };
+});
+myApp.controller("fileUploadDirectiveController", ['$scope', function ($scope) {
+
+    $scope.fileUploadData = '';
+    $scope.$on("fileUploadDirective", function (e, data) {
+        document.getElementById('fileToUpload').click();
+    });
+
+    var show = false;
+    $scope.showOrHideBox = function () {
+        show = !show;
+        var box = $("#upload-notification");
+        show && box.fadeIn(1000) || box.fadeOut(1000);
+    };
+
+    $scope.counterFile = 0;
+    $scope.fileList = [];
+    $scope.fileUpload = function (element) {
+        $scope.fileList = [].concat(_toConsumableArray($scope.fileList), _toConsumableArray(element.files)).reverse();
+        show = false;
+        $scope.showOrHideBox();
+        setTimeout(function () {
+            $scope.$apply();
+        }, 100);
+    };
+
+    $scope.closeBox = function () {
+        $scope.$emit('checkFileUploadList', 'close');
+    };
+
+    var resetCounter = function resetCounter() {
+        $scope.counterFileProcess = {
+            complete: 0,
+            abort: 0,
+            error: 0,
+            uploading: 0
+        };
+    };
+    resetCounter();
+
+    $scope.$on('checkFileUploadList', function (e, data) {
+        resetCounter();
+
+        if (data === 'abort') {
+            $scope.$broadcast('abortAllUploadingStatus');
+            $("#cancelFileUpload").modal('hide');
+            $scope.showOrHideBox();
+            $scope.fileList = [];
+        } else {
+            $scope.fileList.forEach(function (item) {
+                $scope.counterFileProcess[item['status']] = $scope.counterFileProcess[item['status']] + 1;
+            });
+            if (data === 'close') {
+
+                if ($scope.counterFileProcess['uploading'] > 0 || $scope.counterFileProcess['abort'] > 0 || $scope.counterFileProcess['error'] > 0) $("#cancelFileUpload").modal('show');else {
+                    $("#cancelFileUpload").modal('hide');
+                    $scope.showOrHideBox();
+                    $scope.fileList = [];
+                }
+
+                setTimeout(function () {
+                    $scope.$apply();
+                }, 1);
+            }
+        }
+    });
+
+    $scope.abort = function () {
+        $scope.$emit('checkFileUploadList', 'abort');
+    };
+
+    $scope.showContent = true;
+    $scope.toggleBox = function () {
+        $scope.showContent = !$scope.showContent;
+    };
+}]);
+myApp.directive("fileUploadItemsDirective", function () {
+    return {
+        restrict: "E",
+        scope: {
+            fileItem: "=?",
+            fileIndex: "=?"
+        },
+        templateUrl: 'library/bundle/html/file-upload-items-template.html?1516790568201',
+        controller: 'fileUploadItemsDirectiveController'
+    };
+});
+myApp.controller("fileUploadItemsDirectiveController", ['$scope', function ($scope) {
+
+    // https://github.com/mathewbyrne/angular-progress-arc
+    $scope.size = 25;
+    $scope.progress = 0;
+    $scope.strokeWidth = 3;
+    $scope.stroke = '#4285f4';
+    $scope.counterClockwise = true;
+    $scope.background = '#ddd';
+    $scope.progressing = true;
+
+    console.log("fileItem:", $scope.fileItem);
+
+    var ajax = new XMLHttpRequest();
+    $scope.formdata = '';
+    function sendImage(data) {
+        $scope.fileItem['status'] = 'uploading';
+        $scope.formdata = new FormData();
+        $scope.formdata.append("file", data);
+
+        ajax.upload.addEventListener("progress", progressHandler, false);
+        ajax.addEventListener("load", completeHandler, false);
+        ajax.addEventListener("error", errorHandler, false);
+        ajax.addEventListener("abort", abortHandler, false);
+        ajax.open("POST", "/fileUpload");
+        ajax.send($scope.formdata);
+    }
+    sendImage($scope.fileItem);
+    function progressHandler(event) {
+        $scope.eventLoaded = event;
+        $scope.progress = event.loaded / event.total;
+        setTimeout(function () {
+            $scope.$apply();
+        }, 1);
+    }
+
+    function completeHandler() {
+        $scope.progressing = false;
+        $scope.fileItem['status'] = 'complete';
+        $scope.$emit('checkFileUploadList');
+        setTimeout(function () {
+            $scope.$apply();
+        }, 1);
+    }
+
+    function errorHandler() {
+        $scope.progressing = false;
+        $scope.fileItem['status'] = 'error';
+        $scope.$emit('checkFileUploadList');
+        setTimeout(function () {
+            $scope.$apply();
+        }, 1);
+    }
+
+    function abortHandler() {
+        $scope.progressing = false;
+        $scope.fileItem['status'] = 'abort';
+        $scope.$emit('checkFileUploadList');
+        setTimeout(function () {
+            $scope.$apply();
+        }, 1);
+    }
+
+    $scope.replay = function () {
+
+        sendImage($scope.fileItem);
+        $scope.progressing = true;
+        $scope.status = '';
+    };
+
+    $scope.abort = function () {
+        ajax.abort();
+    };
+
+    $scope.$on('abortAllUploadingStatus', function () {
+        if ($scope.fileItem['status'] === 'uploading') {
+            $scope.abort();
+        }
+    });
+}]);
+myApp.directive("newFolderDirective", function () {
+    return {
+        restrict: "E",
+        scope: {},
+        templateUrl: 'library/bundle/html/new-folder-template.html?1516790568201',
+        controller: 'newFolderDirectiveController'
+    };
+});
+myApp.controller("newFolderDirectiveController", ['$scope', function ($scope) {
+    $scope.newFolder = '';
+    var selectedFolder = '';
+    $scope.$on("newFolderCreatorDirective", function (e, data) {
+        $("#newFolderCreator").modal('show');
+        selectedFolder = data;
+    });
+
+    $scope.saveFolder = function () {
+        console.log("selectedFolder: ", selectedFolder, $scope.newFolder);
+        $scope.newFolder = '';
+    };
+}]);
+myApp.directive("removeDirective", function () {
+    return {
+        restrict: "E",
+        scope: {},
+        templateUrl: 'library/bundle/html/remove-template.html?1516790568201',
+        controller: 'removeDirectiveController'
+    };
+});
+myApp.controller("removeDirectiveController", ['$scope', function ($scope) {
+    $scope.removeData = '';
+    $scope.$on("removeDirective", function (e, data) {
+        $("#removeSelectedItem").modal('show');
+        $scope.removeData = data;
+        setTimeout(function () {
+            $scope.$apply();
+        }, 1);
+    });
+
+    $scope.remove = function () {
+        console.log("selectedFolder: ", $scope.removeData);
+    };
+}]);
+myApp.directive("renameDirective", function () {
+    return {
+        restrict: "E",
+        scope: {},
+        templateUrl: 'library/bundle/html/rename-template.html?1516790568201',
+        controller: 'renameDirectiveController'
+    };
+});
+myApp.controller("renameDirectiveController", ['$scope', function ($scope) {
+    $scope.renameData = '';
+    $scope.$on("renameDirective", function (e, data) {
+        $("#renameSelectedItem").modal('show');
+        $scope.mainData = _extends({}, data);
+        $scope.renameData = data;
+        setTimeout(function () {
+            $scope.$apply();
+        }, 1);
+    });
+
+    $scope.rename = function () {
+        console.log("selectedFolder: ", $scope.renameData, $scope.mainData);
+    };
+}]);
 myApp.directive("directoryDirective", function () {
     return {
         restrict: "E",
@@ -15,7 +257,7 @@ myApp.directive("directoryDirective", function () {
         //         }
         //     }/
         // },
-        templateUrl: 'library/bundle/html/directory-template.html?1516450372242',
+        templateUrl: 'library/bundle/html/directory-template.html?1516790568201',
         controller: 'directoryDirectiveController'
     };
 });
@@ -33,6 +275,13 @@ myApp.controller("directoryDirectiveController", ['$scope', '$rootScope', 'conte
         alert('directory');
     };
 
+    $scope.$on('deselectItem', function (e, data) {
+        console.log("data: ", data);
+        $scope.selectedItem = "";
+        setTimeout(function () {
+            $scope.$apply();
+        }, 1);
+    });
     $scope.$on('selectedItem', function (n, itemSelected) {
         $scope.selectedItem = "";
         if ($scope.viewType === 'list') {
@@ -41,14 +290,13 @@ myApp.controller("directoryDirectiveController", ['$scope', '$rootScope', 'conte
             });
             if (!filterContent[0]) return;
             $scope.selectedItem = filterContent[0]['Name'];
-            $rootScope.$broadcast('contentSelectedInformation', filterContent[0], $scope.viewType);
+            $rootScope.$broadcast('contentSelectedInformation', filterContent[0], $scope.viewType, 'directory-directive');
         } else {
             $scope.selectedItem = itemSelected === $scope.pageContent['Name'] ? itemSelected : "";
-            if ($scope.selectedItem) $rootScope.$broadcast('contentSelectedInformation', $scope.pageContent, $scope.viewType);
+            if ($scope.selectedItem) $rootScope.$broadcast('contentSelectedInformation', $scope.pageContent, $scope.viewType, 'directory-directive');
         }
     });
 
-    var getDirective = $("#move-directive-id");
     $scope.$on('dropDownItem', function (a, data) {
         $scope.itemDropDown = '';
         if (!$rootScope.generalData['viewType']) {
@@ -56,8 +304,7 @@ myApp.controller("directoryDirectiveController", ['$scope', '$rootScope', 'conte
                 if (data['Name'] === $scope.pageContent['Name']) {
                     $scope.itemDropDown = $scope.pageContent['Name'].replace(/^[^a-z]+|[^\w:.-]+/gi, "");
                     setTimeout(function () {
-                        // $("#item-id-grid-"+$scope.itemDropDown).click();
-                        loadMoveFunc('grid', $scope.itemDropDown, $rootScope.generalData['viewType']);
+                        $rootScope.$broadcast('loadMoveFunc', 'grid', $scope.itemDropDown, $rootScope.generalData['viewType'], $scope.contentType);
                     }, 100);
                 }
             }
@@ -69,52 +316,25 @@ myApp.controller("directoryDirectiveController", ['$scope', '$rootScope', 'conte
                         $scope.itemDropDown = item['Name'].replace(/^[^a-z]+|[^\w:.-]+/gi, "");
                         item['move'] = $scope.itemDropDown;
                         setTimeout(function () {
-                            // var $el =$("#item-id-list-"+$scope.itemDropDown);  //record the elem so you don't crawl the DOM everytime
-                            // var bottom = $el.position().top + $el.outerHeight(true);
-                            // getDirective.css('display' ,'block');
-                            // getDirective.css('top' ,bottom+8)
-                            loadMoveFunc('list', $scope.itemDropDown, $rootScope.generalData['viewType']);
+                            $rootScope.$broadcast('loadMoveFunc', 'list', $scope.itemDropDown, $rootScope.generalData['viewType'], $scope.contentType);
                         }, 500);
                     }
                 });
             }
         }
     });
-
-    var loadMoveFunc = function loadMoveFunc(type, id, view) {
-        $rootScope.$broadcast('runGetMoveStructure', true);
-        var $el = $("#item-id-" + type + "-" + id);
-        var offset = $el.offset();
-        getDirective.css('display', 'block');
-        getDirective.css('left', offset.left);
-        if (view) {
-            getDirective.css('top', offset.top - 20);
-        } else {
-            if ($scope.contentType === 'file') {
-                getDirective.css('top', offset.top + 112);
-            } else {
-                getDirective.css('top', offset.top - 20);
-            }
-        }
-    };
-
-    $('html').click(function () {
-        getDirective.click(function (event) {
-            event.stopPropagation();
-        });
-        getDirective.css('display', 'none');
-    });
 }]);
 myApp.directive("moveDirective", function () {
     return {
         restrict: "E",
         scope: {},
-        templateUrl: 'library/bundle/html/move-template.html?1516450372242',
+        templateUrl: 'library/bundle/html/move-template.html?1516790568201',
         controller: 'moveDirectiveController'
     };
 });
-myApp.controller("moveDirectiveController", ['$scope', 'loader', function ($scope, loader) {
-    $scope.$on("runGetMoveStructure", function (n, data) {
+myApp.controller("moveDirectiveController", ['$scope', 'loader', '$rootScope', function ($scope, loader, $rootScope) {
+    var getDirective = $("#move-directive-id");
+    var loadMoveFunc = function loadMoveFunc() {
         loader.show('#move-directive-id');
         $scope.data = {
             Buckets: {
@@ -181,13 +401,62 @@ myApp.controller("moveDirectiveController", ['$scope', 'loader', function ($scop
 
         };
         $scope.dataList = [].concat(_toConsumableArray($scope.data['Buckets']['folder']), _toConsumableArray($scope.data['Buckets']['file']));
-        console.log("$scope.dataList:", $scope.dataList);
-
         setTimeout(function () {
             $scope.$apply();
             loader.hide('#move-directive-id');
-        }, 1000);
+        }, 500);
+    };
+
+    $(document).keyup(function (e) {
+        if (e.keyCode === 27) {
+            // escape key maps to keycode `27`
+            $scope.close();
+        }
     });
+    $scope.close = function () {
+        getDirective.css('display', 'none');
+    };
+
+    $scope.$on("loadMoveFunc", function (e, type, id, view, contentType) {
+        loadMoveFunc();
+        var $el = '';
+        if (type === 'header') {
+            $el = $("#move-item-header-site");
+        } else {
+            $el = $("#item-id-" + type + "-" + id);
+        }
+        var offset = $el.offset();
+        getDirective.css('display', 'block');
+        if (type === 'header') {
+            getDirective.css('top', offset.top - 4);
+            getDirective.css('left', offset.top + 110);
+        } else {
+            getDirective.css('left', offset.left);
+            if (view) {
+                getDirective.css('top', offset.top - 20);
+            } else {
+                if (contentType === 'file') {
+                    getDirective.css('top', offset.top + 112);
+                } else {
+                    getDirective.css('top', offset.top - 20);
+                }
+            }
+        }
+    });
+
+    $('html').click(function () {
+        getDirective.click(function (event) {
+            event.stopPropagation();
+        });
+        getDirective.css('display', 'none');
+    });
+
+    $scope.itemSelected = {};
+    $scope.itemSelectedFunc = function (data) {
+        $scope.itemSelected = data;
+    };
+
+    $scope.newFolder = function () {};
 }]);
 myApp.directive("viewDirective", function () {
     return {
@@ -197,102 +466,30 @@ myApp.directive("viewDirective", function () {
             viewType: "=?", //grid | list
             contentType: "=?" //file | directory
         },
-        templateUrl: 'library/bundle/html/view-template.html?1516450372242',
+        templateUrl: 'library/bundle/html/view-template.html?1516790568201',
         controller: 'viewDirectiveController'
     };
 });
 myApp.controller("viewDirectiveController", ['$scope', '$rootScope', 'contextMenuFactory', function ($scope, $rootScope, contextMenuFactory) {
     $scope.menuOptions = contextMenuFactory;
-
-    console.log("$scope.items", $scope.items);
-    // $scope.items = [
-    //     {name: 'Small Health Potion', cost: 4},
-    //     {name: 'Small Mana Potion', cost: 5},
-    //     {name: 'Iron Short Sword', cost: 12}
-    // ];
-
-
-    // $rootScope.copyItem = '';
-    // const copyItem = ($itemScope, $event, modelValue) => {
-    //     $rootScope.copyItem = $itemScope;
-    //     setTimeout(()=>{
-    //         $scope.$apply()
-    //     },10);
-    //
-    //     console.log("copyItem");
-    //
-    // };
-    // const pasteItem = ($itemScope, $event, modelValue) => {
-    //     $rootScope.copyItem = '';
-    //     console.log("pasteItem");
-    // };
-    // const deleteItem = ($itemScope, $event, modelValue) => {
-    //     console.log("deleteItem");
-    // };
-    // const newFolderItem = ($itemScope, $event, modelValue) => {
-    //     console.log("newFolderItem");
-    // };
-    // let menuItems = [
-    //     {
-    //         title: "copy",
-    //         divider: false,
-    //         click: ($itemScope, $event, modelValue) => {
-    //             copyItem($itemScope, $event, modelValue)
-    //         }
-    //
-    //     },
-    //     {
-    //         title: "paste",
-    //         divider: false,
-    //         click: ($itemScope, $event, modelValue) => {
-    //             pasteItem($itemScope, $event, modelValue)
-    //         },
-    //         enabled: function ($itemScope, $event, value) {
-    //             console.log("$rootScope.copyItem", $rootScope.copyItem)
-    //             if (!$rootScope.copyItem) {
-    //                 $('.paste-icon').addClass('disabled');
-    //                 return false;
-    //             }
-    //             return true;
-    //         }
-    //
-    //     },
-    //     {
-    //         title: "delete",
-    //         divider: true,
-    //         click: ($itemScope, $event, modelValue) => {
-    //             deleteItem($itemScope, $event, modelValue)
-    //         }
-    //     }
-    // ];
-    //
-    // let directoryItem = [
-    //     {
-    //         title: "new-folder",
-    //         divider: false,
-    //         click: ($itemScope, $event, modelValue) => {
-    //             newFolderItem($itemScope, $event, modelValue)
-    //         }
-    //
-    //     }
-    //     , ...menuItems];
-    // $scope.menuOptions = {};
-    // const loadContextMenu = (items, type) => {
-    //     $scope.menuOptions[type] = [];
-    //     items.map(item => {
-    //         let contextItem = {
-    //             html: `<div class="context-menu-items ${item['divider'] ? 'context-divider' : ''}"><i class="header-menu ${item['title']}-icon"></i> <div class="display-inline-block">${item['title']}</div> </div>`,
-    //             click: item['click'],
-    //             enabled: item['enabled'] ? item['enabled'] : ''
-    //         };
-    //         $scope.menuOptions[type].push(contextItem)
-    //     })
-    // }
-    //
-    // console.log("directoryItem: ", directoryItem)
-    // loadContextMenu(menuItems, 'file');
-    // loadContextMenu(directoryItem, 'directory');
-
+    $("#main-content-id").click(function () {
+        $(".box-item-file-folder").click(function () {
+            return false;
+        });
+        $("#newFolderCreator").click(function () {
+            return false;
+        });
+        $("#renameSelectedItem").click(function () {
+            return false;
+        });
+        $("#removeSelectedItem").click(function () {
+            return false;
+        });
+        $("#main-content-id").bind("click", function () {
+            $rootScope.$broadcast('contentSelectedInformation', {}, '', 'view-directive');
+            $rootScope.$broadcast('deselectItem', 'view-directive');
+        });
+    });
 }]);
 /***
  GLobal Directives
@@ -355,6 +552,22 @@ myApp.directive('dropdownMenuHover', function () {
         }
     };
 });
+myApp.directive('fileReader', ['$parse', function ($parse) {
+    return {
+        scope: {
+            fileReader: "="
+        },
+        link: function link(scope, element, attributes) {
+            element.bind("change", function (changeEvent) {
+                scope.$apply(function () {
+                    // scope.fileread = changeEvent.target.files[0];
+                    // or all selected prodfiles:
+                    scope.fileread = changeEvent.target.files;
+                });
+            });
+        }
+    };
+}]);
 myApp.directive("datePickerBtnDirective", function () {
     return {
         restrict: "E",
@@ -362,7 +575,7 @@ myApp.directive("datePickerBtnDirective", function () {
             overViewStatus: "=?",
             config: "=?"
         },
-        templateUrl: 'library/bundle/html/date-picker-btn-template.html?1516450372242',
+        templateUrl: 'library/bundle/html/date-picker-btn-template.html?1516790568201',
         controller: 'datePickerBtnController'
     };
 });
@@ -469,7 +682,7 @@ myApp.directive("datePickerDirective", function () {
             config: "=?",
             setDateCurrent: "=?"
         },
-        templateUrl: 'library/bundle/html/date-picker-template.html?1516450372242',
+        templateUrl: 'library/bundle/html/date-picker-template.html?1516790568201',
         controller: 'datePickerController'
     };
 });
@@ -593,7 +806,7 @@ myApp.directive('notFoundPage', function () {
         scope: {
             text: "@"
         },
-        templateUrl: 'library/bundle/html/not-found-directive.html?1516450372242',
+        templateUrl: 'library/bundle/html/not-found-directive.html?1516790568201',
         controller: ['$rootScope', '$scope', function controller($rootScope, $scope) {}]
     };
 });
@@ -656,7 +869,7 @@ myApp.controller("translatorDirectiveController", ['$scope', '$translate', 'sett
     setLanguage(settings['defaultLanguage']);
 }]);
 // https://github.com/Templarian/ui.bootstrap.contextMenu
-myApp.factory('contextMenuFactory', ['$rootScope', '$http', function ($rootScope, $http) {
+myApp.factory('contextMenuFactory', ['$rootScope', '$http', '$filter', function ($rootScope, $http, $filter) {
     var copyItemVar = '';
     var copyItem = function copyItem($itemScope, $event, modelValue) {
         copyItemVar = $itemScope['item'];
@@ -666,66 +879,82 @@ myApp.factory('contextMenuFactory', ['$rootScope', '$http', function ($rootScope
         console.log("pasteItem", $itemScope['item'], copyItemVar);
         copyItemVar = '';
     };
+    var renameItem = function renameItem($itemScope, $event, modelValue) {
+        console.log("renameItem", $itemScope['item'], copyItemVar);
+        $rootScope.$broadcast('renameDirective', $itemScope['item']);
+    };
     var deleteItem = function deleteItem($itemScope, $event, modelValue) {
         console.log("deleteItem", $itemScope['item']);
+        $rootScope.$broadcast('removeDirective', $itemScope['item']);
     };
     var newFolderItem = function newFolderItem($itemScope, $event, modelValue) {
         console.log("newFolderItem", $itemScope['item']);
+        $rootScope.$broadcast('newFolderCreatorDirective', $itemScope['item']);
     };
     var moveItem = function moveItem($itemScope, $event, modelValue) {
-
         $rootScope.$broadcast("dropDownItem", $itemScope['item']);
-
-        console.log("moveItem", $itemScope['item']);
+    };
+    var fileUploadItem = function fileUploadItem($itemScope, $event, modelValue) {
+        $rootScope.$broadcast("fileUploadDirective", $itemScope['item']);
     };
 
     var bodyItem = [{
         title: "new-folder",
-        divider: false,
+        dividerTop: false,
         click: function click($itemScope, $event, modelValue) {
             newFolderItem($itemScope, $event, modelValue);
         }
 
     }, {
         title: "file-upload",
-        divider: true,
+        dividerTop: true,
         click: function click($itemScope, $event, modelValue) {
-            newFolderItem($itemScope, $event, modelValue);
+            fileUploadItem($itemScope, $event, modelValue);
         }
 
     }];
 
-    var fileItem = [{
-        title: "copy",
-        divider: false,
-        click: function click($itemScope, $event, modelValue) {
-            copyItem($itemScope, $event, modelValue);
-        }
-
-    }, {
-        title: "paste",
-        divider: false,
-        click: function click($itemScope, $event, modelValue) {
-            pasteItem($itemScope, $event, modelValue);
-        },
-        enabled: function enabled($itemScope, $event, value) {
-            console.log("$rootScope.copyItem", copyItemVar);
-            if (!copyItemVar) {
-                return false;
-            }
-            return true;
-        }
-
-    }, {
+    var generalItem = [
+    // {
+    //     title: "copy",
+    //     dividerTop: false,
+    //     click: ($itemScope, $event, modelValue) => {
+    //         copyItem($itemScope, $event, modelValue)
+    //     }
+    //
+    // },
+    // {
+    //     title: "paste",
+    //     dividerTop: false,
+    //     click: ($itemScope, $event, modelValue) => {
+    //         pasteItem($itemScope, $event, modelValue)
+    //     },
+    //     enabled: function ($itemScope, $event, value) {
+    //         console.log("$rootScope.copyItem", copyItemVar)
+    //         if (!copyItemVar) {
+    //             return false;
+    //         }
+    //         return true;
+    //     }
+    //
+    // },
+    {
         title: "move",
-        divider: false,
+        dividerTop: false,
         click: function click($itemScope, $event, modelValue) {
             moveItem($itemScope, $event, modelValue);
         }
 
     }, {
+        title: "rename",
+        dividerTop: false,
+        click: function click($itemScope, $event, modelValue) {
+            renameItem($itemScope, $event, modelValue);
+        }
+
+    }, {
         title: "info",
-        divider: false,
+        dividerTop: false,
         click: function click($itemScope, $event, modelValue) {
             $rootScope.changeInfoStatus();
         },
@@ -739,28 +968,30 @@ myApp.factory('contextMenuFactory', ['$rootScope', '$http', function ($rootScope
 
     }, {
         title: "delete",
-        divider: true,
+        dividerTop: true,
         click: function click($itemScope, $event, modelValue) {
             deleteItem($itemScope, $event, modelValue);
         }
     }];
 
+    var fileItem = [].concat(generalItem);
     var directoryItem = [{
         title: "new-folder",
-        divider: false,
+        dividerTop: false,
+        dividerBottom: true,
         click: function click($itemScope, $event, modelValue) {
             newFolderItem($itemScope, $event, modelValue);
         }
 
-    }].concat(fileItem);
+    }].concat(generalItem);
 
     var menuOptions = {};
     var loadContextMenu = function loadContextMenu(items, type) {
+
         menuOptions[type] = [];
         items.map(function (item) {
-
             var contextItem = {
-                html: "<div class=\"context-menu-items " + (item['divider'] ? 'context-divider' : '') + "\"><i class=\"header-menu " + item['title'] + "-icon\"></i> <div class=\"display-inline-block\">" + item['title'] + "</div> </div>",
+                html: "<div class=\"context-menu-items " + (item['dividerTop'] ? 'context-divider-top' : '') + " " + (item['dividerBottom'] ? 'context-divider-bottom' : '') + "\"><i class=\"header-menu " + item['title'] + "-icon\"></i> <div class=\"display-inline-block\">" + $filter('translate')(item['title']) + "</div> </div>",
                 click: item['click'],
                 enabled: item['enabled'] ? item['enabled'] : ''
             };
@@ -772,7 +1003,7 @@ myApp.factory('contextMenuFactory', ['$rootScope', '$http', function ($rootScope
     // const getMenu =(callback)=>{
     //     async.auto({
     //         getFileContextMenu : cb=>{
-    //             loadContextMenu(fileItem, 'file', (resp)=>{
+    //             loadContextMenu(generalItem, 'file', (resp)=>{
     //                 cb(null, resp);
     //             });
     //         },
@@ -966,6 +1197,29 @@ myApp.filter('generateDuration', function () {
     };
 });
 /**
+ * get parameter and return string of it with '' character
+ */
+myApp.filter('generateIcon', function () {
+    return function (fileName) {
+        var str = fileName.split('.').pop();
+
+        console.log("str: ", str);
+        var image = ['jpeg', 'jpg', 'png', 'gif', 'svg'];
+        var zip = ['zip', 'rar'];
+        var move = ['mp4', 'mpeg', 'webm'];
+
+        if (image.includes(str)) {
+            return 'image';
+        } else if (zip.includes(str)) {
+            return 'archive';
+        } else if (move.includes(str)) {
+            return 'video';
+        } else {
+            return 'document';
+        }
+    };
+});
+/**
  * get byte number and generate size of file with b | kb | mb | gb
  */
 myApp.filter('generateSize', ['$filter', function ($filter) {
@@ -1117,6 +1371,14 @@ myApp.service('appService', ['$http', 'settings', '$rootScope', '$state', '$time
             return a - b;
         });
     };
+    Object.defineProperty(Object.prototype, "length", {
+        enumerable: false,
+        value: function value() {
+            return Object.keys(this).length;
+        }
+
+    });
+
     var appService = {
         'userdata': function userdata(params) {
             var startDate = new Date();
@@ -1386,6 +1648,7 @@ myApp.service('appService', ['$http', 'settings', '$rootScope', '$state', '$time
         }
     };
     return appService;
+
     /**
      * call server with $http
      * @param params

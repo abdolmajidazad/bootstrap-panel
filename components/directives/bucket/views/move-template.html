@@ -6,10 +6,10 @@
             <div class="image-content"> </div>
         </div>
         <div class="display-inline-block title">My Drive</div>
-        <div class="display-inline-block header-menu close-icon"></div>
+        <div class="display-inline-block header-menu close-icon" ng-click="close()"></div>
     </div>
     <div class="move-box-content">
-        <div ng-repeat="item in dataList" ng-class="{true : 'disable', false : ''}[!!item['Mime']]">
+        <div ng-repeat="item in dataList" ng-class="{true : 'disable', false : ''}[!!item['Mime']]" ng-click="itemSelectedFunc(item)">
             <div class="folder-image {{item['Mime'] ? item['Mime']+'-image-16' : 'directory-image'}} display-inline-block" >
                 <div class="image-content"> </div>
             </div>
@@ -18,10 +18,9 @@
         </div>
     </div>
     <div class="move-box-footer">
-
         <div class="left">
             <div class="button">move here</div>
         </div>
-        <div class="display-inline-block header-menu new-folder-icon"></div>
+        <div class="display-inline-block header-menu new-folder-icon" ng-click="newFolder()"></div>
     </div>
 </div>

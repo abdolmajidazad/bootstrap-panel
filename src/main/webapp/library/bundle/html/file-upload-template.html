@@ -1,0 +1,53 @@
+<input type="file" ng-model-instant id="fileToUpload" class="hidden" multiple
+       onchange="angular.element(this).scope().fileUpload(this)"/>
+
+
+
+<div id="upload-notification" class="upload-notification box-shadow ltr-data">
+    <div class="header">
+        <div class="actions">
+            <div class="header-menu close-icon-white" ng-click="closeBox()"></div>
+            <div class="header-menu " ng-class="{true : 'arrow-down-icon-white', false:'arrow-up-icon-white'}[showContent]" ng-click="toggleBox()"></div>
+        </div>
+        <div class="title">
+            <div ng-if="counterFileProcess['complete']>0">
+                <div class="display-inline-block">{{'file_uploaded' | translate}}</div>
+                <div class="display-inline-block"><span class="badge badge-pill badge-light" style="padding: 5px; margin: 2px">{{counterFileProcess['complete']}}</span></div>
+            </div>
+            <div ng-if="counterFileProcess['complete']==0">{{'file_upload' | translate}}</div>
+
+        </div>
+    </div>
+    <div class="body" id="content-uploader-file" ng-class="{true : '', false:'collapse'}[showContent]">
+        <file-upload-items-directive ng-repeat="item in fileList" file-item="item" file-index="$index"></file-upload-items-directive>
+    </div>
+
+</div>
+
+
+
+
+<div class="modal fade ltr-data"  id="cancelFileUpload" tabindex="-1" role="dialog" aria-labelledby="cancelFileUploadLabel" aria-hidden="true">
+    <div class="modal-dialog rename-dialog" role="document" >
+        <div class="modal-content">
+            <div class="modal-header" style="border: 0px">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title" id="cancelFileUploadLabel">{{'cancel_upload' | translate}}</h5>
+
+            </div>
+            <div class="modal-body rtl-data">
+                <h6 class="rtl-data" style="padding-bottom: 10px">{{'your_upload_is_not_complete_Would_you_like_to_cancel_the_upload' | translate}} </h6>
+                <div ng-show="counterFileProcess['uploading']>0" class="col-md-6">{{'uploading' | translate}} : {{counterFileProcess['uploading']}}</div>
+                <div ng-show="counterFileProcess['complete']>0" class="col-md-6">{{'complete' | translate}} : {{counterFileProcess['complete']}}</div>
+                <div ng-show="counterFileProcess['abort']>0" class="col-md-6">{{'abort' | translate}} : {{counterFileProcess['abort']}}</div>
+                <div ng-show="counterFileProcess['error']>0" class="col-md-6">{{'error' | translate}} : {{counterFileProcess['error']}}</div>
+            </div>
+            <div class="modal-footer rtl-data" style="border: 0px">
+                <button type="button" class="btn btn-primary pointer abroid-btn" ng-click="abort()">{{'apply' | translate}}</button>
+                <button type="button" class="btn pointer" data-dismiss="modal">{{'cancel' | translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>

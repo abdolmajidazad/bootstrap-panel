@@ -1,6 +1,6 @@
 <div
         ng-if="viewType == 'grid' && contentType=='directory'"
-        class="folder box-shadow"
+        class="folder box-shadow box-item-file-folder"
         id="item-id-grid-{{itemDropDown}}"
         ng-dblclick="dblclickFolder(pageContent['Name'])"
         ng-click="clickFolder(pageContent['Name'])"
@@ -10,7 +10,7 @@
     <div class="folder-image directory-image">
         <div class="image-content"></div>
     </div>
-    <div class="folder-title">{{pageContent['Name']}}-{{itemDropDown}}</div>
+    <div class="folder-title">{{pageContent['Name']}}</div>
 </div>
 
 
@@ -18,7 +18,7 @@
 
 <div
         ng-if="viewType == 'grid' && contentType=='file'"
-        class="file box-shadow"
+        class="file box-shadow box-item-file-folder"
         id="item-id-grid-{{itemDropDown}}"
         ng-dblclick="dblclickFolder(pageContent['Name'])"
         ng-click="clickFolder(pageContent['Name'])"
@@ -33,7 +33,7 @@
             <div class="folder-image {{pageContent['Mime']}}-image-16">
                 <div class="image-content "></div>
             </div>
-            <div class="folder-title">{{pageContent['Name']}}-{{itemDropDown}}</div>
+            <div class="folder-title">{{pageContent['Name']}}</div>
         </div>
     </div>
 </div>
@@ -55,6 +55,7 @@
                 ng-dblclick="dblclickFolder(item['Name'], viewType)"
                 ng-click="clickFolder(item['Name'], viewType)"
                 ng-right-click="clickFolder(item['Name'])"
+                class="box-item-file-folder"
                 context-menu="item['Mime'] ? menuOptions['file'] : menuOptions['directory']"
                 context-menu-empty-text="'SOME TEXT FOR EMPTY'"
         >

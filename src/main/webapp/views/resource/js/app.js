@@ -2,15 +2,15 @@
  * create angular module and call  dependency module
  * @type {angular.Module}
  */
-var myApp = angular.module('myApp', ['ui.router', 'pascalprecht.translate', 'ngSanitize', 'ui.bootstrap.contextMenu']);
+var myApp = angular.module('myApp', ['ui.router', 'pascalprecht.translate', 'ngSanitize', 'ui.bootstrap.contextMenu', 'angular-progress-arc']);
 
 /**
  * root controller
  * this controller load in first call project
  */
-myApp.controller("rootCtrl", ['$scope', '$rootScope', 'contextMenuFactory', function ($scope, $rootScope, contextMenuFactory) {
+myApp.controller("rootCtrl", ['$scope', '$rootScope', function ($scope, $rootScope) {
 
-    $scope.menuOptions = contextMenuFactory;
+    // $scope.menuOptions = contextMenuFactory;
     $rootScope.startDate = new Date();
     $rootScope.generalData = {};
 }]);
@@ -150,19 +150,19 @@ myApp.config(["$stateProvider", "$urlRouterProvider", "$controllerProvider", "$c
             },
             // "body@" : {},
             "header@root": {
-                templateUrl: 'views/tpl/header/header.html?1516450372242',
+                templateUrl: 'views/tpl/header/header.html?1516790568201',
                 controller: 'headerController'
             },
             "footer@root": {
-                templateUrl: 'views/tpl/footer/footer.html?1516450372242',
+                templateUrl: 'views/tpl/footer/footer.html?1516790568201',
                 controller: 'footerController'
             },
             "rightSidebar@root": {
-                templateUrl: 'views/tpl/sidebar/right/sidebar.html?1516450372242',
+                templateUrl: 'views/tpl/sidebar/right/sidebar.html?1516790568201',
                 controller: 'rightSidebarController'
             },
             "leftSidebar@root": {
-                templateUrl: 'views/tpl/sidebar/left/sidebar.html?1516450372242',
+                templateUrl: 'views/tpl/sidebar/left/sidebar.html?1516790568201',
                 controller: 'leftSidebarController'
             }
         },
@@ -183,10 +183,11 @@ myApp.config(["$stateProvider", "$urlRouterProvider", "$controllerProvider", "$c
         url: "/drive/my-drive",
         views: {
             "afterLogin": {
-                templateUrl: "views/pages/myDrive/myDrive.html?1516450372242",
+                templateUrl: "views/pages/myDrive/myDrive.html?1516790568201",
                 controller: "MyDriveCtrl"
             }
         },
+
         css: appIncludeFilesJson[appEnvironment].pages.myDrive.css,
         resolve: {
             deps: ['$q', '$rootScope', function deps($q, $rootScope) {
@@ -204,7 +205,7 @@ myApp.config(["$stateProvider", "$urlRouterProvider", "$controllerProvider", "$c
         url: "/drive/recent",
         views: {
             "afterLogin": {
-                templateUrl: "views/pages/recent/recent.html?1516450372242",
+                templateUrl: "views/pages/recent/recent.html?1516790568201",
                 controller: "RecentCtrl"
             }
         },
@@ -225,7 +226,7 @@ myApp.config(["$stateProvider", "$urlRouterProvider", "$controllerProvider", "$c
         url: "/",
         views: {
             "beforeLogin": {
-                templateUrl: "views/pages/signin/signin.html?1516450372242",
+                templateUrl: "views/pages/signin/signin.html?1516790568201",
                 controller: "SigninCtrl"
             }
         },
@@ -247,7 +248,7 @@ myApp.config(["$stateProvider", "$urlRouterProvider", "$controllerProvider", "$c
         url: "/404",
         views: {
             "beforeLogin": {
-                templateUrl: "views/pages/404/404.html?1516450372242",
+                templateUrl: "views/pages/404/404.html?1516790568201",
                 controller: "NotFoundCtrl"
             }
         },

@@ -1,0 +1,23 @@
+<div class="modal fade"  id="renameSelectedItem" tabindex="-1" role="dialog" aria-labelledby="renameSelectedItemLabel" aria-hidden="true">
+    <div class="modal-dialog rename-dialog" role="document" >
+        <div class="modal-content">
+            <div class="modal-header" style="border: 0">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title" id="renameSelectedItemLabel">{{'rename' | translate}}</h5>
+
+            </div>
+            <div class="modal-body">
+                <h6 class="rtl-data">{{'please_enter_a_new_name_for_the_item' | translate}} : </h6>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="rename_item"  ng-model="renameData['Name']">
+                </div>
+            </div>
+            <div class="modal-footer rtl-data" style="border: 0">
+                <button ng-disabled="!renameData['Name']" type="button" class="btn btn-primary pointer abroid-btn" ng-click="rename()">{{'apply' | translate}}</button>
+                <button type="button" class="btn pointer" data-dismiss="modal">{{'cancel' | translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>

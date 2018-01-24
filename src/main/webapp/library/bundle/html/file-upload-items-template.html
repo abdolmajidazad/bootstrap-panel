@@ -1,0 +1,44 @@
+<div class="file-upload-items">
+    <div class="file-upload-header">
+
+        <div class="folder-image {{fileItem['name'] | generateIcon}}-image-16" style="margin-right: 10px">
+            <div class="image-content "></div>
+        </div>
+        <div>
+            {{fileItem['name']}}
+        </div>
+
+    </div>
+    <div class="file-upload-other">
+        <span ng-show="fileItem['status'] == 'complete' || fileItem['status'] == 'uploading'">
+                <div ng-if="eventLoaded['loaded']<eventLoaded['total']">{{eventLoaded['loaded'] | generateSize}}</div>
+                <div ng-class="{true : 'font-size-9 color-blue',false:'color-blue'}[[eventLoaded['loaded']<eventLoaded['total']]]">{{eventLoaded['total'] | generateSize}}</div>
+
+        </span>
+    </div>
+    <div class="file-upload-progress-item">
+        <div class="progress-content">
+            <div
+                    ng-if="!progressing" class="header-menu"
+                    ng-class="{'complete-icon' : fileItem['status'] == 'complete','replay-icon-black' : fileItem['status'] == 'abort','replay-icon-red' : fileItem['status'] == 'error' }"
+                    ng-click="(fileItem['status'] == 'abort' || fileItem['status'] == 'error' ) ? replay() : ''"
+            ></div>
+            <div ng-if="progressing" class="hover-progress-content" ng-click="abort()">
+                <progress-arc
+                        size="{{ size }}"
+                        stroke="{{ stroke }}"
+                        stroke-width="{{ strokeWidth }}"
+                        complete="progress"
+                        background="{{ background }}"
+                        counter-clockwise="{{ counterClockwise }}"></progress-arc>
+                <div class="progress-text">{{progress * 100 | number:0}}</div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+

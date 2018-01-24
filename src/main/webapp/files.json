@@ -3,43 +3,46 @@
         "index" : {
             "css" : [
                 {
-                    "path" : "library/bower_components/nprogress/nprogress.css?1516450372242",
+                    "path" : "library/bower_components/nprogress/nprogress.css?1516790568201",
                     "position" : "end"
                 },
                 {
-                    "path" : "library/bower_components/persian-datepicker/dist/css/persian-datepicker-0.4.5.css?1516450372242",
+                    "path" : "library/bower_components/persian-datepicker/dist/css/persian-datepicker-0.4.5.css?1516790568201",
                     "position" : "end"
                 },{
-                    "path" : "views/resource/css/bundle.css?1516450372242",
+                    "path" : "views/resource/css/bundle.css?1516790568201",
                     "position" : "end"
                 }
             ],
             "js" : [
 
                 {
-                    "path" : "library/bower_components/angular-translate/angular-translate.min.js?1516450372242",
+                    "path" : "library/bower_components/angular-translate/angular-translate.min.js?1516790568201",
                     "position" : "start"
                 },
                 {
-                    "path" : "library/bower_components/persian-date/dist/0.1.8/persian-date-0.1.8.min.js?1516450372242",
+                    "path" : "library/bower_components/persian-date/dist/0.1.8/persian-date-0.1.8.min.js?1516790568201",
                     "position" : "end"
                 },{
-                    "path" : "library/bower_components/angular-update-meta/dist/update-meta.min.js?1516450372242",
+                    "path" : "library/bower_components/angular-update-meta/dist/update-meta.min.js?1516790568201",
                     "position" : "end"
                 },{
-                    "path" : "library/bower_components/nprogress/nprogress.js?1516450372242",
+                    "path" : "library/bower_components/nprogress/nprogress.js?1516790568201",
                     "position" : "end"
                 },{
-                    "path" : "library/bower_components/persian-datepicker/lib/persian-date.js?1516450372242",
+                    "path" : "library/bower_components/persian-datepicker/lib/persian-date.js?1516790568201",
                     "position" : "end"
                 },{
-                    "path" : "library/bower_components/persian-datepicker/dist/js/persian-datepicker-0.4.5.min.js?1516450372242",
+                    "path" : "library/bower_components/persian-datepicker/dist/js/persian-datepicker-0.4.5.min.js?1516790568201",
                     "position" : "end"
                 },{
-                    "path" : "library/bower_components/js-sha1/build/sha1.min.js?1516450372242",
+                    "path" : "library/bower_components/js-sha1/build/sha1.min.js?1516790568201",
                     "position" : "end"
                 },{
-                    "path" : "library/bower_components/angular-bootstrap-contextmenu/contextMenu.js?1516450372242",
+                    "path" : "library/bower_components/angular-bootstrap-contextmenu/contextMenu.js?1516790568201",
+                    "position" : "end"
+                },{
+                    "path" : "library/bower_components/angular-progress-arc/angular-progress-arc.min.js?1516790568201",
                     "position" : "end"
                 }
             ]
@@ -50,11 +53,11 @@
                 ],
                 "js" : [
 
-                    "views/pages/signin/signin.js?1516450372242",
-                    "views/tpl/footer/footer.js?1516450372242",
-                    "views/tpl/sidebar/left/sidebar.js?1516450372242",
-                    "views/tpl/sidebar/right/sidebar.js?1516450372242",
-                    "views/tpl/header/header.js?1516450372242"
+                    "views/pages/signin/signin.js?1516790568201",
+                    "views/tpl/footer/footer.js?1516790568201",
+                    "views/tpl/sidebar/left/sidebar.js?1516790568201",
+                    "views/tpl/sidebar/right/sidebar.js?1516790568201",
+                    "views/tpl/header/header.js?1516790568201"
                 ]
             },
             "notFound" : {
@@ -62,25 +65,25 @@
                 "js" : [
 
 
-                    "views/pages/404/404.js?1516450372242"
+                    "views/pages/404/404.js?1516790568201"
                 ]
             },
             "signin" : {
                 "css" : [],
                 "js" : [
-                    "views/pages/signin/signin.js?1516450372242"
+                    "views/pages/signin/signin.js?1516790568201"
                 ]
             },
             "myDrive" : {
                 "css" : [],
                 "js" : [
-                    "views/pages/myDrive/myDrive.js?1516450372242"
+                    "views/pages/myDrive/myDrive.js?1516790568201"
                 ]
             },
             "recent" : {
                 "css" : [],
                 "js" : [
-                    "views/pages/recent/recent.js?1516450372242"
+                    "views/pages/recent/recent.js?1516790568201"
                 ]
             }
         }
@@ -91,43 +94,46 @@
         "index" : {
             "css" : [
                 {
-                    "path" : "library/bower_components/nprogress/nprogress.css?1516450372242",
+                    "path" : "library/bower_components/nprogress/nprogress.css?1516790568201",
                     "position" : "end"
                 },
                 {
-                    "path" : "library/bower_components/persian-datepicker/dist/css/persian-datepicker-0.4.5.css?1516450372242",
+                    "path" : "library/bower_components/persian-datepicker/dist/css/persian-datepicker-0.4.5.css?1516790568201",
                     "position" : "end"
                 },{
-                    "path" : "views/resource/css/bundle.css?1516450372242",
+                    "path" : "views/resource/css/bundle.css?1516790568201",
                     "position" : "end"
                 }
             ],
             "js" : [
 
                 {
-                    "path" : "library/bower_components/angular-translate/angular-translate.min.js?1516450372242",
+                    "path" : "library/bower_components/angular-translate/angular-translate.min.js?1516790568201",
                     "position" : "start"
                 },
                 {
-                    "path" : "library/bower_components/persian-date/dist/0.1.8/persian-date-0.1.8.min.js?1516450372242",
+                    "path" : "library/bower_components/persian-date/dist/0.1.8/persian-date-0.1.8.min.js?1516790568201",
                     "position" : "end"
                 },{
-                    "path" : "library/bower_components/angular-update-meta/dist/update-meta.min.js?1516450372242",
+                    "path" : "library/bower_components/angular-update-meta/dist/update-meta.min.js?1516790568201",
                     "position" : "end"
                 },{
-                    "path" : "library/bower_components/nprogress/nprogress.js?1516450372242",
+                    "path" : "library/bower_components/nprogress/nprogress.js?1516790568201",
                     "position" : "end"
                 },{
-                    "path" : "library/bower_components/persian-datepicker/lib/persian-date.js?1516450372242",
+                    "path" : "library/bower_components/persian-datepicker/lib/persian-date.js?1516790568201",
                     "position" : "end"
                 },{
-                    "path" : "library/bower_components/persian-datepicker/dist/js/persian-datepicker-0.4.5.min.js?1516450372242",
+                    "path" : "library/bower_components/persian-datepicker/dist/js/persian-datepicker-0.4.5.min.js?1516790568201",
                     "position" : "end"
                 },{
-                    "path" : "library/bower_components/js-sha1/build/sha1.min.js?1516450372242",
+                    "path" : "library/bower_components/js-sha1/build/sha1.min.js?1516790568201",
                     "position" : "end"
                 },{
-                    "path" : "library/bower_components/angular-bootstrap-contextmenu/contextMenu.js?1516450372242",
+                    "path" : "library/bower_components/angular-bootstrap-contextmenu/contextMenu.js?1516790568201",
+                    "position" : "end"
+                },{
+                    "path" : "library/bower_components/angular-progress-arc/angular-progress-arc.min.js?1516790568201",
                     "position" : "end"
                 }
             ]
@@ -137,11 +143,11 @@
                 "css" : [
                 ],
                 "js" : [
-                    "views/pages/signin/signin.min.js?1516450372242",
-                    "views/tpl/footer/footer.min.js?1516450372242",
-                    "views/tpl/sidebar/left/sidebar.min.js?1516450372242",
-                    "views/tpl/sidebar/right/sidebar.min.js?1516450372242",
-                    "views/tpl/header/header.min.js?1516450372242"
+                    "views/pages/signin/signin.min.js?1516790568201",
+                    "views/tpl/footer/footer.min.js?1516790568201",
+                    "views/tpl/sidebar/left/sidebar.min.js?1516790568201",
+                    "views/tpl/sidebar/right/sidebar.min.js?1516790568201",
+                    "views/tpl/header/header.min.js?1516790568201"
                 ]
             },
             "notFound" : {
@@ -149,25 +155,25 @@
                 "js" : [
 
 
-                    "views/pages/404/404.min.js?1516450372242"
+                    "views/pages/404/404.min.js?1516790568201"
                 ]
             },
             "signin" : {
                 "css" : [],
                 "js" : [
-                    "views/pages/signin/signin.min.js?1516450372242"
+                    "views/pages/signin/signin.min.js?1516790568201"
                 ]
             },
             "myDrive" : {
                 "css" : [],
                 "js" : [
-                    "views/pages/myDrive/myDrive.min.js?1516450372242"
+                    "views/pages/myDrive/myDrive.min.js?1516790568201"
                 ]
             },
             "recent" : {
                 "css" : [],
                 "js" : [
-                    "views/pages/recent/recent.min.js?1516450372242"
+                    "views/pages/recent/recent.min.js?1516790568201"
                 ]
             }
         }

@@ -1,4 +1,4 @@
-<div ng-if="contentInformation['Name']">
+<div ng-if="infoContentShow">
     <div class="ltr-data info-header">
         <div class="directory-image"><div class="image-content"></div></div>
         <div class="info-header-title display-inline-block">
@@ -42,6 +42,27 @@
             </span>
             <textarea ng-show="showTextarea" class="form-control"  rows="3"></textarea>
         </div>
+    </div>
+
+
+</div>
+
+<div ng-if="!infoContentShow">
+    <div class="ltr-data info-header">
+        <div class="directory-image"><div class="image-content"></div></div>
+        <div class="info-header-title display-inline-block">
+            {{'my_drive' | translate}}
+        </div>
+        <div class="display-inline-block header-menu close-icon" ng-click="changeInfoStatus()"></div>
+    </div>
+    <div class="file-image information bg-color-white" >
+        <div class="review-image-128" ></div>
+    </div>
+    <div class="padding-15">
+        <div class="col-md-12 info-content-items " style="text-align: center">
+            {{'select_a_file_or_folder_to_view_its_details' | translate}}.
+        </div>
+
     </div>
 
 

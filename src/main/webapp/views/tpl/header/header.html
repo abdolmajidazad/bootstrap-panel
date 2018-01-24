@@ -1,8 +1,7 @@
-
 <update-title title="{{'website_title' | translate}}"></update-title>
 <div class="btn-site-menu">
     <div class="dropdown">
-        <button class="btn dropdown-toggle"  type="button" ng-click="toggleFunc(toggleSide)">
+        <button class="btn dropdown-toggle" type="button" ng-click="toggleFunc(toggleSide)">
             <img ng-src="views/resource/images/ic_menu_black_48dp.png" alt="">
         </button>
     </div>
@@ -13,12 +12,14 @@
     </a>
 
     <div class="dropdown header-drop-down-btn" ng-if="generalData['jhoobinJhubDataSelected']">
-        <button class="btn dropdown-toggle header-drop-down-btn" type="button" aria-haspopup="true" aria-expanded="false" ng-click="toggleAppList()">
+        <button class="btn dropdown-toggle header-drop-down-btn " type="button" id="dropdownAppList"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-click="toggleAppList()">
             <span class="form-link">
                 {{generalData['jhoobinJhubDataSelected'] |   translate}}
             </span>
         </button>
-        <div class="dropdown-menu dropdown-menu-app-list management " style="width: 188px"  ng-class="{true : 'block-display', false:''}[generalData['toggleAppListStatus']]">
+        <div class="dropdown-menu dropdown-menu-app-list management box-shadow " style="width: 188px"
+             aria-labelledby="dropdownAppList">
             <ul>
                 <li
                         ng-repeat="app  in generalData['jhoobinJhubDataList']"
@@ -32,20 +33,47 @@
 
         </div>
     </div>
-
-    <!--<div class="profile-info mobile-none">-->
-        <!--<div class="form-link">{{generalData['jhoobinJhubDataApp']['name']}}</div>-->
-        <!--<div class="color-gray ltr-data">{{generalData['jhoobinJhubDataApp']['email']}}</div>-->
-    <!--</div>-->
     <div class="exit-info">
         <div class="profile-info mobile-none">
             <div class="form-link">{{generalData['jhoobinJhubDataApp']['name']}}</div>
             <div class="color-gray ltr-data">{{generalData['jhoobinJhubDataApp']['email']}}</div>
         </div>
-        <!--<div class="exit-btn" data-toggle="tooltip" title="{{'exit' | translate}}"  ng-click="signoutFunc()" ></div>-->
         <div class="header-menu-icon">
-            <div class="header-menu " ng-click="generalData['viewType'] = !generalData['viewType']" ng-class="{true : 'grid-icon', false:'list-icon'}[generalData['viewType']]"></div>
-            <div class="header-menu info-icon" ng-click="changeInfoStatus()" ng-class="{true : 'active', false:''}[generalData['informationData']]"></div>
+            <div class="header-menu-icon mobile-none-flex" ng-show="selectedItemInformation['Name']" >
+                <div class="header-menu delete-icon" ng-click="remove()"></div>
+                <div class="btn-group">
+                    <div class="header-menu more-icon" id="dropdownMenuMoreButton" data-toggle="dropdown"></div>
+                    <div class="dropdown-menu new-dropdown box-shadow more-dropdown"
+                         aria-labelledby="dropdownMenuMoreButton">
+                        <div class="context-menu-items" id="move-item-header-site" ng-click="move()"><i
+                                class="header-menu move-icon"></i>
+                            <div class="display-inline-block">{{'move' | translate}}</div>
+                        </div>
+                        <div class="context-menu-items" ng-click="rename()"><i
+                                class="header-menu rename-icon"></i>
+                            <div class="display-inline-block">{{'rename' | translate}}</div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="divider display-inline-block"></div>
+            </div>
+            <div class="btn-group mobile-none">
+                <div class="btn btn-primary pointer abroid-btn" id="dropdownMenuButton" data-toggle="dropdown">{{'new' | translate}}</div>
+                <div class="dropdown-menu new-dropdown box-shadow" aria-labelledby="dropdownMenuButton">
+                    <div class="context-menu-items" ng-click="newFolder()"><i class="header-menu new-folder-icon"></i>
+                        <div class="display-inline-block">{{'new-folder' | translate}}</div>
+                    </div>
+                    <div class="context-menu-items" ng-click="fileUpload()"><i class="header-menu file-upload-icon"></i>
+                        <div class="display-inline-block">{{'file-upload' | translate}}</div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="header-menu " ng-click="generalData['viewType'] = !generalData['viewType']"
+                 ng-class="{true : 'grid-icon', false:'list-icon'}[generalData['viewType']]"></div>
+            <div class="header-menu info-icon" ng-click="changeInfoStatus()"
+                 ng-class="{true : 'active', false:''}[generalData['informationData']]"></div>
             <div class="header-menu exit-icon" ng-click="signoutFunc()"></div>
         </div>
 

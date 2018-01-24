@@ -40,6 +40,16 @@ myApp.controllerProvider.register('headerController', ['$scope', '$state', '$tim
         document.getElementById('main-data-content').style.width = $rootScope.generalData['informationData'] ? 'calc(100% - 320px)' : ''
     };
 
+
+    $rootScope.changeInfoStatusOtherPage = () => {
+        $rootScope.generalData['informationData'] = false;
+        $rootScope.$broadcast('contentSelectedInformation', {},'','header');
+        // $rootScope.$broadcast('selectedItem', '');
+        document.getElementById('left-sidebar-information').style.left = $rootScope.generalData['informationData'] ? 0 : '';
+        if (window.innerWidth <= 760) return;
+        document.getElementById('main-data-content').style.width = $rootScope.generalData['informationData'] ? 'calc(100% - 320px)' : ''
+    };
+
     $scope.toggleFunc = function (n) {
 
         $rootScope.generalData['toggleAppListStatus'] = false;
@@ -146,5 +156,37 @@ myApp.controllerProvider.register('headerController', ['$scope', '$state', '$tim
         $rootScope.generalData['toggleAppListStatus'] = false;
     };
 
+
+
+
+    $scope.$on('contentSelectedInformation', (n, contentInfo, viewType, state) => {
+        $scope.selectedItemInformation = contentInfo
+    });
+
+    $scope.move = ()=>{
+        $scope.itemDropDown = $scope.selectedItemInformation['Name'].replace(/^[^a-z]+|[^\w:.-]+/gi, "");
+        setTimeout(() => {
+            $rootScope.$broadcast('loadMoveFunc', 'header', $scope.itemDropDown)
+        }, 500);
+    };
+
+
+
+    $scope.newFolder = ()=>{
+        $rootScope.$broadcast('newFolderCreatorDirective', {"test":3});
+    }
+
+
+    $scope.fileUpload = ()=>{
+        $rootScope.$broadcast("fileUploadDirective");
+    }
+;
+    $scope.remove = ()=>{
+        $rootScope.$broadcast('removeDirective', $scope.selectedItemInformation);
+    };
+
+    $scope.rename = ()=>{
+        $rootScope.$broadcast('renameDirective', $scope.selectedItemInformation);
+    }
 
 }]);

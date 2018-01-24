@@ -2,7 +2,12 @@
 
 
 
-<div class="container-float ltr-data" >
+<div
+        class="container-float ltr-data"
+        style="min-height: 80vh;padding-bottom: 300px;"
+        context-menu="menuOptions['body']"
+        context-menu-empty-text="'SOME TEXT FOR EMPTY'"
+>
     <div ng-show="!generalData['viewType']">
         <div class="padding-5" ng-show="data['Buckets']['folder']">
             <div class="rtl-data content-header">{{'folders' | translate}}</div>
@@ -21,7 +26,16 @@
 
     <move-directive id="move-directive-id"  class="dropdown-menu box-shadow" role="menu" aria-labelledby="menu1" style="width: auto; margin-top: 12px;padding: 0; position: absolute"></move-directive>
 
+
+
+
+
+
+
+
+
 </div>
+
 
 
 

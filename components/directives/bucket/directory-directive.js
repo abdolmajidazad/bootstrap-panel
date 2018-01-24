@@ -24,7 +24,7 @@ myApp.controller("directoryDirectiveController", ['$scope', '$rootScope', 'conte
         /**
          * use for select and deselect items
          */
-        $rootScope.$broadcast('selectedItem', selectedItem)
+        $rootScope.$broadcast('selectedItem', selectedItem);
     };
 
 
@@ -32,6 +32,12 @@ myApp.controller("directoryDirectiveController", ['$scope', '$rootScope', 'conte
         alert('directory')
     };
 
+
+    $scope.$on('deselectItem', (e,data)=>{
+        console.log("data: ", data)
+        $scope.selectedItem = "";
+        setTimeout(()=>{$scope.$apply()},1)
+    });
     $scope.$on('selectedItem', (n, itemSelected) => {
         $scope.selectedItem = "";
         if ($scope.viewType === 'list') {
@@ -40,17 +46,16 @@ myApp.controller("directoryDirectiveController", ['$scope', '$rootScope', 'conte
             });
             if (!filterContent[0]) return;
             $scope.selectedItem = filterContent[0]['Name'];
-            $rootScope.$broadcast('contentSelectedInformation', filterContent[0], $scope.viewType);
+            $rootScope.$broadcast('contentSelectedInformation', filterContent[0], $scope.viewType,'directory-directive');
 
         } else {
             $scope.selectedItem = itemSelected === $scope.pageContent['Name'] ? itemSelected : "";
             if ($scope.selectedItem)
-                $rootScope.$broadcast('contentSelectedInformation', $scope.pageContent, $scope.viewType);
+                $rootScope.$broadcast('contentSelectedInformation', $scope.pageContent, $scope.viewType,'directory-directive');
         }
     });
 
 
-    let getDirective = $("#move-directive-id");
     $scope.$on('dropDownItem', (a, data) => {
         $scope.itemDropDown = '';
         if (!$rootScope.generalData['viewType']) {
@@ -58,8 +63,7 @@ myApp.controller("directoryDirectiveController", ['$scope', '$rootScope', 'conte
                 if (data['Name'] === $scope.pageContent['Name']) {
                     $scope.itemDropDown = $scope.pageContent['Name'].replace(/^[^a-z]+|[^\w:.-]+/gi, "");
                     setTimeout(() => {
-                        // $("#item-id-grid-"+$scope.itemDropDown).click();
-                        loadMoveFunc('grid', $scope.itemDropDown, $rootScope.generalData['viewType'])
+                        $rootScope.$broadcast('loadMoveFunc', 'grid', $scope.itemDropDown, $rootScope.generalData['viewType'], $scope.contentType)
                     }, 100);
                 }
             }
@@ -72,11 +76,7 @@ myApp.controller("directoryDirectiveController", ['$scope', '$rootScope', 'conte
                         $scope.itemDropDown = item['Name'].replace(/^[^a-z]+|[^\w:.-]+/gi, "");
                         item['move'] = $scope.itemDropDown;
                         setTimeout(() => {
-                            // var $el =$("#item-id-list-"+$scope.itemDropDown);  //record the elem so you don't crawl the DOM everytime
-                            // var bottom = $el.position().top + $el.outerHeight(true);
-                            // getDirective.css('display' ,'block');
-                            // getDirective.css('top' ,bottom+8)
-                            loadMoveFunc('list', $scope.itemDropDown, $rootScope.generalData['viewType'])
+                            $rootScope.$broadcast('loadMoveFunc', 'list', $scope.itemDropDown, $rootScope.generalData['viewType'], $scope.contentType)
                         }, 500);
                     }
                 });
@@ -84,31 +84,5 @@ myApp.controller("directoryDirectiveController", ['$scope', '$rootScope', 'conte
 
         }
     });
-
-
-    const loadMoveFunc = (type, id, view) => {
-        $rootScope.$broadcast('runGetMoveStructure',true);
-        let $el = $("#item-id-" + type + "-" + id);
-        let offset = $el.offset();
-        getDirective.css('display', 'block');
-        getDirective.css('left', offset.left);
-        if (view) {
-            getDirective.css('top', offset.top - 20);
-        } else {
-            if ($scope.contentType === 'file') {
-                getDirective.css('top', offset.top + 112);
-            } else {
-                getDirective.css('top', offset.top - 20);
-            }
-        }
-    };
-
-    $('html').click(() => {
-        getDirective.click((event) =>{
-            event.stopPropagation();
-        });
-        getDirective.css('display' ,'none');
-    });
-
 
 }]);

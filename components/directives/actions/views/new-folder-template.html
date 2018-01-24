@@ -1,0 +1,22 @@
+<div class="modal fade"  id="newFolderCreator" tabindex="-1" role="dialog" aria-labelledby="newFolderCreatorLabel" aria-hidden="true">
+    <div class="modal-dialog rename-dialog" role="document" >
+        <div class="modal-content">
+            <div class="modal-header" style="border: 0px">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title" id="newFolderCreatorLabel">{{'new-folder' | translate}}</h5>
+
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="rename_item"  ng-model="newFolder" >
+                </div>
+            </div>
+            <div class="modal-footer rtl-data" style="border: 0px">
+                <button ng-disabled="!newFolder" type="button" class="btn btn-primary pointer abroid-btn" ng-click="saveFolder()">{{'apply' | translate}}</button>
+                <button type="button" class="btn pointer" data-dismiss="modal">{{'cancel' | translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,10 +1,18 @@
-myApp.service('appService', ['$http', 'settings', '$rootScope',  '$state', '$timeout', 'loader','$filter', function ($http, settings, $rootScope, $state, $timeout, loader,$filter) {
+myApp.service('appService', ['$http', 'settings', '$rootScope', '$state', '$timeout', 'loader', '$filter', function ($http, settings, $rootScope, $state, $timeout, loader, $filter) {
     let resourceName = settings.serverPath;
     Array.prototype.numberSort = function () {
         if (this.length) return this.sort((a, b) => {
             return a - b
         })
     };
+    Object.defineProperty(Object.prototype, "length", {
+        enumerable: false,
+        value: function () {return Object.keys(this).length}
+
+    });
+
+
+
     let appService = {
         'userdata': (params) => {
             let startDate = new Date();
@@ -216,17 +224,17 @@ myApp.service('appService', ['$http', 'settings', '$rootScope',  '$state', '$tim
                             // $state.go("root.signin");
 
                         } else {
-                            $rootScope.generalData['jhoobinJhubDataSelected']='';
+                            $rootScope.generalData['jhoobinJhubDataSelected'] = '';
                             // $rootScope.jhoobinJhubDataSelected = '';
-                            $rootScope.generalData['jhoobinJhubData']=result.getCheckData['packageName'];
+                            $rootScope.generalData['jhoobinJhubData'] = result.getCheckData['packageName'];
                             // $rootScope.jhoobinJhubData = result.getCheckData['packageName'];
-                            $rootScope.generalData['accountNumber']=result.getCheckData['accountId'];
+                            $rootScope.generalData['accountNumber'] = result.getCheckData['accountId'];
                             // $rootScope.accountNumber = result.getCheckData['accountId'];
-                            $rootScope.generalData['jhoobinJhubDataList']=result.getAppList;
+                            $rootScope.generalData['jhoobinJhubDataList'] = result.getAppList;
                             // $rootScope.jhoobinJhubDataList = result.getAppList;
-                            $rootScope.generalData['versionFilter']={};
+                            $rootScope.generalData['versionFilter'] = {};
                             // $rootScope.versionFilter = {};
-                            $rootScope.generalData['jhoobinJhubDataApp']=result.getCheckData['producer'];
+                            $rootScope.generalData['jhoobinJhubDataApp'] = result.getCheckData['producer'];
                             // $rootScope.generalData['state']=$state;
                             // $rootScope.jhoobinJhubDataApp = result.getCheckData['producer'];
                             if ($rootScope.generalData['jhoobinJhubDataList'].length) {
@@ -276,6 +284,7 @@ myApp.service('appService', ['$http', 'settings', '$rootScope',  '$state', '$tim
         }
     };
     return appService;
+
     /**
      * call server with $http
      * @param params

@@ -3,6 +3,11 @@
 
 
 
+<input type="file" id="fileselect" name="fileselect[]" multiple="multiple" style="display:none"/>
+<div id="filedrag"></div>
+
+
+
 <div id="upload-notification" class="upload-notification box-shadow ltr-data">
     <div class="header">
         <div class="actions">
@@ -11,8 +16,10 @@
         </div>
         <div class="title">
             <div ng-if="counterFileProcess['complete']>0">
+                <div class="display-inline-block"><span style="padding: 5px; margin: 2px"> ( {{counterFileProcess['uploadedSize'] | generateSize}} ) </span></div>
                 <div class="display-inline-block">{{'file_uploaded' | translate}}</div>
-                <div class="display-inline-block"><span class="badge badge-pill badge-light" style="padding: 5px; margin: 2px">{{counterFileProcess['complete']}}</span></div>
+                <!--<div class="display-inline-block"><span class="badge badge-pill badge-light" style="padding: 5px; margin: 2px">{{counterFileProcess['complete']}}</span></div>-->
+                <div class="display-inline-block"><span style="padding: 5px; margin: 2px">{{counterFileProcess['complete']}}</span></div>
             </div>
             <div ng-if="counterFileProcess['complete']==0">{{'file_upload' | translate}}</div>
 
@@ -46,6 +53,30 @@
             </div>
             <div class="modal-footer rtl-data" style="border: 0px">
                 <button type="button" class="btn btn-primary pointer abroid-btn" ng-click="abort()">{{'apply' | translate}}</button>
+                <button type="button" class="btn pointer" data-dismiss="modal">{{'cancel' | translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade rtl-data"  id="dragAndDropFiles" tabindex="-1" role="dialog" aria-labelledby="dragAndDropFilesLabel" aria-hidden="true">
+    <div class="modal-dialog rename-dialog" role="document" >
+        <div class="modal-content">
+            <div class="modal-header" style="border: 0">
+
+                <h5 class="modal-title" id="dragAndDropFilesLabel">{{'file_upload' | translate}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            <div class="modal-body">
+                <h6 class="rtl-data">{{'are_you_sure_upload_selected_files_in_this_panel' | translate}} </h6>
+            </div>
+            <div class="modal-footer rtl-data" style="border: 0">
+                <button type="button" class="btn pointer abroid-btn" ng-click="drop()">{{'apply' | translate}}</button>
                 <button type="button" class="btn pointer" data-dismiss="modal">{{'cancel' | translate}}</button>
             </div>
         </div>

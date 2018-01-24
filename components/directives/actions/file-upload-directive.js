@@ -25,8 +25,13 @@ myApp.controller("fileUploadDirectiveController", ['$scope', function ($scope) {
 
     $scope.counterFile = 0;
     $scope.fileList = [];
+
     $scope.fileUpload = (element) => {
-        $scope.fileList = [...$scope.fileList, ...element.files].reverse();
+        $scope.fileUploadFinal(element.files)
+    }
+    $scope.fileUploadFinal = (element) => {
+        console.log("element: ", element)
+        $scope.fileList = [...$scope.fileList, ...element].reverse();
         show = false;
         $scope.showOrHideBox();
         setTimeout(() => {
@@ -45,7 +50,8 @@ myApp.controller("fileUploadDirectiveController", ['$scope', function ($scope) {
             complete: 0,
             abort: 0,
             error: 0,
-            uploading: 0
+            uploading: 0,
+            uploadedSize :0
         };
     };
     resetCounter();
@@ -62,6 +68,9 @@ myApp.controller("fileUploadDirectiveController", ['$scope', function ($scope) {
         } else {
             $scope.fileList.forEach(item => {
                 $scope.counterFileProcess[item['status']] = $scope.counterFileProcess[item['status']] + 1;
+
+                if(item['status'] === 'complete')
+                    $scope.counterFileProcess['uploadedSize'] = $scope.counterFileProcess['uploadedSize'] + item['size'];
             });
             if (data === 'close') {
 
@@ -92,4 +101,95 @@ myApp.controller("fileUploadDirectiveController", ['$scope', function ($scope) {
     $scope.toggleBox = ()=>{
         $scope.showContent = !$scope.showContent
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // getElementById
+    function $id(id) {
+        return document.getElementById(id);
+    }
+
+
+
+    // file drag hover
+    function FileDragHover(e) {
+        console.log("a", e)
+        e.stopPropagation();
+        e.preventDefault();
+        // e.target.className = (e.type == "dragover" ? "hover" : "");
+    }
+
+
+    // file selection
+    function FileSelectHandler(e) {
+
+        // cancel event and hover styling
+        FileDragHover(e);
+
+        // fetch FileList object
+        var files = e.target.files || e.dataTransfer.files;
+        $scope.fileArray = [];
+        for (var i = 0, f; f = files[i]; i++) {
+            $scope.fileArray.push(f);
+        }
+
+        $("#dragAndDropFiles").modal('show');
+
+
+
+    }
+
+    $scope.drop = ()=>{
+        $("#dragAndDropFiles").modal('hide');
+        $scope.fileUploadFinal($scope.fileArray);
+    };
+
+
+
+    // initialize
+    function Init() {
+
+        var fileselect = $id("fileselect"),
+            filedrag = $id("main-content-id");
+
+        // file select
+        fileselect.addEventListener("change", FileSelectHandler, false);
+
+        // is XHR2 available?
+        var xhr = new XMLHttpRequest();
+        if (xhr.upload) {
+            // file drop
+            filedrag.addEventListener("dragover", FileDragHover, false);
+            filedrag.addEventListener("dragleave", FileDragHover, false);
+            filedrag.addEventListener("drop", FileSelectHandler, false);
+        }
+
+    }
+    Init();
+
 }]);

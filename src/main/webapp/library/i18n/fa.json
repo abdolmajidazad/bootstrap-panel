@@ -48,7 +48,8 @@
   "abort" : "متوقف شده",
   "error" : "خطا در آپلود",
   "file_upload" : "فایل آپلود",
-  "file_uploaded" : "فایل آپلود شده"
+  "file_uploaded" : "فایل آپلود شده",
+  "are_you_sure_upload_selected_files_in_this_panel" : "آیا از آپلود فایل های انتخاب شده اطمینان دارید؟"
 
 
 

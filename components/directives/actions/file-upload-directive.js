@@ -51,7 +51,7 @@ myApp.controller("fileUploadDirectiveController", ['$scope', function ($scope) {
             abort: 0,
             error: 0,
             uploading: 0,
-            uploadedSize :0
+            uploadedSize: 0
         };
     };
     resetCounter();
@@ -69,7 +69,7 @@ myApp.controller("fileUploadDirectiveController", ['$scope', function ($scope) {
             $scope.fileList.forEach(item => {
                 $scope.counterFileProcess[item['status']] = $scope.counterFileProcess[item['status']] + 1;
 
-                if(item['status'] === 'complete')
+                if (item['status'] === 'complete')
                     $scope.counterFileProcess['uploadedSize'] = $scope.counterFileProcess['uploadedSize'] + item['size'];
             });
             if (data === 'close') {
@@ -96,100 +96,68 @@ myApp.controller("fileUploadDirectiveController", ['$scope', function ($scope) {
     };
 
 
-
     $scope.showContent = true;
-    $scope.toggleBox = ()=>{
+    $scope.toggleBox = () => {
         $scope.showContent = !$scope.showContent
-    }
+    };
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    /**
+     * drag and drop functions
+     * @param id
+     * @returns {Element}
+     */
 
     // getElementById
     function $id(id) {
         return document.getElementById(id);
     }
 
+    var fileselect = $id("fileselect"),
+        filedrag = $id("drag-and-drop-here");
 
 
     // file drag hover
     function FileDragHover(e) {
-        console.log("a", e)
+        document.getElementById("drag-and-drop-here").classList.add("drag-and-drop");
         e.stopPropagation();
         e.preventDefault();
-        // e.target.className = (e.type == "dragover" ? "hover" : "");
+    }
+
+    function FileDragLeave(e) {
+        document.getElementById("drag-and-drop-here").classList.remove("drag-and-drop");
     }
 
 
     // file selection
     function FileSelectHandler(e) {
-
-        // cancel event and hover styling
         FileDragHover(e);
-
-        // fetch FileList object
         var files = e.target.files || e.dataTransfer.files;
         $scope.fileArray = [];
         for (var i = 0, f; f = files[i]; i++) {
             $scope.fileArray.push(f);
         }
-
+        document.getElementById("drag-and-drop-here").classList.remove("drag-and-drop");
         $("#dragAndDropFiles").modal('show');
-
-
-
     }
 
-    $scope.drop = ()=>{
+    $scope.drop = () => {
         $("#dragAndDropFiles").modal('hide');
         $scope.fileUploadFinal($scope.fileArray);
     };
 
-
-
-    // initialize
     function Init() {
-
-        var fileselect = $id("fileselect"),
-            filedrag = $id("main-content-id");
-
-        // file select
         fileselect.addEventListener("change", FileSelectHandler, false);
-
         // is XHR2 available?
         var xhr = new XMLHttpRequest();
         if (xhr.upload) {
             // file drop
             filedrag.addEventListener("dragover", FileDragHover, false);
-            filedrag.addEventListener("dragleave", FileDragHover, false);
+            filedrag.addEventListener("dragleave", FileDragLeave, false);
             filedrag.addEventListener("drop", FileSelectHandler, false);
         }
-
     }
+
     Init();
 
 }]);

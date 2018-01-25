@@ -150,19 +150,19 @@ myApp.config(["$stateProvider", "$urlRouterProvider", "$controllerProvider", "$c
             },
             // "body@" : {},
             "header@root": {
-                templateUrl: 'views/tpl/header/header.html?1516790568201',
+                templateUrl: 'views/tpl/header/header.html?1516859448621',
                 controller: 'headerController'
             },
             "footer@root": {
-                templateUrl: 'views/tpl/footer/footer.html?1516790568201',
+                templateUrl: 'views/tpl/footer/footer.html?1516859448621',
                 controller: 'footerController'
             },
             "rightSidebar@root": {
-                templateUrl: 'views/tpl/sidebar/right/sidebar.html?1516790568201',
+                templateUrl: 'views/tpl/sidebar/right/sidebar.html?1516859448621',
                 controller: 'rightSidebarController'
             },
             "leftSidebar@root": {
-                templateUrl: 'views/tpl/sidebar/left/sidebar.html?1516790568201',
+                templateUrl: 'views/tpl/sidebar/left/sidebar.html?1516859448621',
                 controller: 'leftSidebarController'
             }
         },
@@ -183,7 +183,7 @@ myApp.config(["$stateProvider", "$urlRouterProvider", "$controllerProvider", "$c
         url: "/drive/my-drive",
         views: {
             "afterLogin": {
-                templateUrl: "views/pages/myDrive/myDrive.html?1516790568201",
+                templateUrl: "views/pages/myDrive/myDrive.html?1516859448621",
                 controller: "MyDriveCtrl"
             }
         },
@@ -205,7 +205,7 @@ myApp.config(["$stateProvider", "$urlRouterProvider", "$controllerProvider", "$c
         url: "/drive/recent",
         views: {
             "afterLogin": {
-                templateUrl: "views/pages/recent/recent.html?1516790568201",
+                templateUrl: "views/pages/recent/recent.html?1516859448621",
                 controller: "RecentCtrl"
             }
         },
@@ -226,7 +226,7 @@ myApp.config(["$stateProvider", "$urlRouterProvider", "$controllerProvider", "$c
         url: "/",
         views: {
             "beforeLogin": {
-                templateUrl: "views/pages/signin/signin.html?1516790568201",
+                templateUrl: "views/pages/signin/signin.html?1516859448621",
                 controller: "SigninCtrl"
             }
         },
@@ -248,7 +248,7 @@ myApp.config(["$stateProvider", "$urlRouterProvider", "$controllerProvider", "$c
         url: "/404",
         views: {
             "beforeLogin": {
-                templateUrl: "views/pages/404/404.html?1516790568201",
+                templateUrl: "views/pages/404/404.html?1516859448621",
                 controller: "NotFoundCtrl"
             }
         },

@@ -6,7 +6,7 @@ myApp.directive("fileUploadDirective", function () {
     return {
         restrict: "E",
         scope: {},
-        templateUrl: 'library/bundle/html/file-upload-template.html?1516790568201',
+        templateUrl: 'library/bundle/html/file-upload-template.html?1516859448621',
         controller: 'fileUploadDirectiveController'
     };
 });
@@ -26,8 +26,13 @@ myApp.controller("fileUploadDirectiveController", ['$scope', function ($scope) {
 
     $scope.counterFile = 0;
     $scope.fileList = [];
+
     $scope.fileUpload = function (element) {
-        $scope.fileList = [].concat(_toConsumableArray($scope.fileList), _toConsumableArray(element.files)).reverse();
+        $scope.fileUploadFinal(element.files);
+    };
+    $scope.fileUploadFinal = function (element) {
+        console.log("element: ", element);
+        $scope.fileList = [].concat(_toConsumableArray($scope.fileList), _toConsumableArray(element)).reverse();
         show = false;
         $scope.showOrHideBox();
         setTimeout(function () {
@@ -44,7 +49,8 @@ myApp.controller("fileUploadDirectiveController", ['$scope', function ($scope) {
             complete: 0,
             abort: 0,
             error: 0,
-            uploading: 0
+            uploading: 0,
+            uploadedSize: 0
         };
     };
     resetCounter();
@@ -60,6 +66,8 @@ myApp.controller("fileUploadDirectiveController", ['$scope', function ($scope) {
         } else {
             $scope.fileList.forEach(function (item) {
                 $scope.counterFileProcess[item['status']] = $scope.counterFileProcess[item['status']] + 1;
+
+                if (item['status'] === 'complete') $scope.counterFileProcess['uploadedSize'] = $scope.counterFileProcess['uploadedSize'] + item['size'];
             });
             if (data === 'close') {
 
@@ -84,6 +92,62 @@ myApp.controller("fileUploadDirectiveController", ['$scope', function ($scope) {
     $scope.toggleBox = function () {
         $scope.showContent = !$scope.showContent;
     };
+
+    /**
+     * drag and drop functions
+     * @param id
+     * @returns {Element}
+     */
+
+    // getElementById
+    function $id(id) {
+        return document.getElementById(id);
+    }
+
+    var fileselect = $id("fileselect"),
+        filedrag = $id("drag-and-drop-here");
+
+    // file drag hover
+    function FileDragHover(e) {
+        document.getElementById("drag-and-drop-here").classList.add("drag-and-drop");
+        e.stopPropagation();
+        e.preventDefault();
+    }
+
+    function FileDragLeave(e) {
+        document.getElementById("drag-and-drop-here").classList.remove("drag-and-drop");
+    }
+
+    // file selection
+    function FileSelectHandler(e) {
+        FileDragHover(e);
+        var files = e.target.files || e.dataTransfer.files;
+        $scope.fileArray = [];
+        for (var i = 0, f; f = files[i]; i++) {
+            $scope.fileArray.push(f);
+        }
+        document.getElementById("drag-and-drop-here").classList.remove("drag-and-drop");
+        $("#dragAndDropFiles").modal('show');
+    }
+
+    $scope.drop = function () {
+        $("#dragAndDropFiles").modal('hide');
+        $scope.fileUploadFinal($scope.fileArray);
+    };
+
+    function Init() {
+        fileselect.addEventListener("change", FileSelectHandler, false);
+        // is XHR2 available?
+        var xhr = new XMLHttpRequest();
+        if (xhr.upload) {
+            // file drop
+            filedrag.addEventListener("dragover", FileDragHover, false);
+            filedrag.addEventListener("dragleave", FileDragLeave, false);
+            filedrag.addEventListener("drop", FileSelectHandler, false);
+        }
+    }
+
+    Init();
 }]);
 myApp.directive("fileUploadItemsDirective", function () {
     return {
@@ -92,7 +156,7 @@ myApp.directive("fileUploadItemsDirective", function () {
             fileItem: "=?",
             fileIndex: "=?"
         },
-        templateUrl: 'library/bundle/html/file-upload-items-template.html?1516790568201',
+        templateUrl: 'library/bundle/html/file-upload-items-template.html?1516859448621',
         controller: 'fileUploadItemsDirectiveController'
     };
 });
@@ -180,7 +244,7 @@ myApp.directive("newFolderDirective", function () {
     return {
         restrict: "E",
         scope: {},
-        templateUrl: 'library/bundle/html/new-folder-template.html?1516790568201',
+        templateUrl: 'library/bundle/html/new-folder-template.html?1516859448621',
         controller: 'newFolderDirectiveController'
     };
 });
@@ -201,7 +265,7 @@ myApp.directive("removeDirective", function () {
     return {
         restrict: "E",
         scope: {},
-        templateUrl: 'library/bundle/html/remove-template.html?1516790568201',
+        templateUrl: 'library/bundle/html/remove-template.html?1516859448621',
         controller: 'removeDirectiveController'
     };
 });
@@ -223,7 +287,7 @@ myApp.directive("renameDirective", function () {
     return {
         restrict: "E",
         scope: {},
-        templateUrl: 'library/bundle/html/rename-template.html?1516790568201',
+        templateUrl: 'library/bundle/html/rename-template.html?1516859448621',
         controller: 'renameDirectiveController'
     };
 });
@@ -257,7 +321,7 @@ myApp.directive("directoryDirective", function () {
         //         }
         //     }/
         // },
-        templateUrl: 'library/bundle/html/directory-template.html?1516790568201',
+        templateUrl: 'library/bundle/html/directory-template.html?1516859448621',
         controller: 'directoryDirectiveController'
     };
 });
@@ -328,7 +392,7 @@ myApp.directive("moveDirective", function () {
     return {
         restrict: "E",
         scope: {},
-        templateUrl: 'library/bundle/html/move-template.html?1516790568201',
+        templateUrl: 'library/bundle/html/move-template.html?1516859448621',
         controller: 'moveDirectiveController'
     };
 });
@@ -466,7 +530,7 @@ myApp.directive("viewDirective", function () {
             viewType: "=?", //grid | list
             contentType: "=?" //file | directory
         },
-        templateUrl: 'library/bundle/html/view-template.html?1516790568201',
+        templateUrl: 'library/bundle/html/view-template.html?1516859448621',
         controller: 'viewDirectiveController'
     };
 });
@@ -575,7 +639,7 @@ myApp.directive("datePickerBtnDirective", function () {
             overViewStatus: "=?",
             config: "=?"
         },
-        templateUrl: 'library/bundle/html/date-picker-btn-template.html?1516790568201',
+        templateUrl: 'library/bundle/html/date-picker-btn-template.html?1516859448621',
         controller: 'datePickerBtnController'
     };
 });
@@ -682,7 +746,7 @@ myApp.directive("datePickerDirective", function () {
             config: "=?",
             setDateCurrent: "=?"
         },
-        templateUrl: 'library/bundle/html/date-picker-template.html?1516790568201',
+        templateUrl: 'library/bundle/html/date-picker-template.html?1516859448621',
         controller: 'datePickerController'
     };
 });
@@ -806,7 +870,7 @@ myApp.directive('notFoundPage', function () {
         scope: {
             text: "@"
         },
-        templateUrl: 'library/bundle/html/not-found-directive.html?1516790568201',
+        templateUrl: 'library/bundle/html/not-found-directive.html?1516859448621',
         controller: ['$rootScope', '$scope', function controller($rootScope, $scope) {}]
     };
 });
@@ -1234,7 +1298,7 @@ myApp.filter('generateSize', ['$filter', function ($filter) {
          * define the amount of kilo byte
          * @type {number}
          */
-        var kb = 1000;
+        var kb = 1024;
 
         /**
          * define the amount of mega byte by kilo byte
@@ -1258,13 +1322,13 @@ myApp.filter('generateSize', ['$filter', function ($filter) {
          * return number with suffix data
          */
         if (number > 0 && number < kb) {
-            return number;
+            return number + ' ' + $filter('translate')('b');
         } else if (number >= kb && number < mb) {
-            return (number / kb).toFixed(2) + ' ' + $filter('translate')('K');
+            return (number / kb).toFixed(2) + ' ' + $filter('translate')('Kb');
         } else if (number >= mb && number < gb) {
-            return (number / mb).toFixed(2) + ' ' + $filter('translate')('M');
+            return (number / mb).toFixed(2) + ' ' + $filter('translate')('Mb');
         } else if (number >= gb && number < tb) {
-            return (number / gb).toFixed(2) + ' ' + $filter('translate')('G');
+            return (number / gb).toFixed(2) + ' ' + $filter('translate')('Gb');
         }
         // $filter('translate')('HELLO_WORLD');
     };
